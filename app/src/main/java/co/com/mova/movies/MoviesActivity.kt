@@ -3,7 +3,10 @@ package co.com.mova.movies
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
+import android.view.Menu
+import android.view.MenuItem
 import co.com.mova.BaseApplication
 import co.com.mova.EndLessScrollListener
 import co.com.mova.R
@@ -45,6 +48,26 @@ class MoviesActivity : AppCompatActivity(), IMoviesActivityView {
         mRVMovies?.adapter?.let {
             (it as MoviesAdapter).addMovies(movies)
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        item?.let {
+            val isShowingFavorites = mPresenter.isShowingFavorites()
+            val resourceId = if (isShowingFavorites) R.drawable.ic_favorite_border_white
+            else R.drawable.ic_favorite_white
+            item.icon = ContextCompat.getDrawable(this@MoviesActivity, resourceId)
+            mPresenter.toggleFavorites()
+
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+        menu?.let {
+            menuInflater.inflate(R.menu.movies_menu, menu)
+        }
+        return super.onCreateOptionsMenu(menu)
     }
 
     override fun navigate(destination: Class<*>, arguments: Bundle?) {

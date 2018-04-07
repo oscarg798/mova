@@ -7,4 +7,9 @@ import co.com.post.IBasePresenter
  * Created by oscarg798 on 4/7/18.
  */
 interface IMoviesActivityPresenter : IBasePresenter<IMoviesActivityView>, IMoviesScrollListener,
-        SwipeRefreshLayout.OnRefreshListener, IMoviesCallback
+        SwipeRefreshLayout.OnRefreshListener, IMoviesCallback{
+
+    fun toggleFavorites()
+
+    fun isShowingFavorites(): Boolean
+}

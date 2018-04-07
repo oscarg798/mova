@@ -24,7 +24,7 @@ class GetFavoriteMoviesUseCase(mSubscribeOnScheduler: Scheduler,
                 Movie(dbMovie.id, dbMovie.voteCount, dbMovie.voteAverage, dbMovie.title,
                         dbMovie.popularity, dbMovie.posterPath, ArrayList(), dbMovie.overview,
                         dbMovie.releaseDate, dbMovie.favorite)
-            })
+            }.sortedByDescending { it.popularity })
 
         }
     }

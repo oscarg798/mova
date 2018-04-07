@@ -26,20 +26,30 @@ class MoviesActivityPresenter : IMoviesActivityPresenter {
 
     private var mDisposableBag = CompositeDisposable()
 
+    private var mIsShowingFavorites = false
+
     @Inject
     lateinit var mGetMoviesUseCase: ISingleUseCase<Pair<Boolean, List<Movie>>, Int>
 
+    @Inject
+    lateinit var mGetFavoriteMoviesUseCase: ISingleUseCase<List<Movie>, Any?>
+
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume() {
-        mActualPage = 1
-        mView?.clear()
-        getMovies()
+        if(!mIsShowingFavorites){
+            mActualPage = 1
+            mView?.clear()
+            getMovies()
+        }else{
+            getFavoritesMovies()
+        }
+
 
     }
 
     private fun getMovies() {
-        if(!mIsLoading){
-            mIsLoading=true
+        if (!mIsLoading) {
+            mIsLoading = true
             mView?.showProgressBar()
             val disposable = object : DisposableSingleObserver<Pair<Boolean, List<Movie>>>() {
                 override fun onSuccess(t: Pair<Boolean, List<Movie>>) {
@@ -63,11 +73,10 @@ class MoviesActivityPresenter : IMoviesActivityPresenter {
         }
 
 
-
     }
 
     override fun loadMore() {
-        if (mHasMoreResults && !mIsLoading) {
+        if (mHasMoreResults && !mIsLoading && !mIsShowingFavorites) {
             mActualPage++
             getMovies()
         }
@@ -79,11 +88,13 @@ class MoviesActivityPresenter : IMoviesActivityPresenter {
     }
 
     override fun onRefresh() {
-        if (!mIsLoading) {
+        if (!mIsLoading && !mIsShowingFavorites) {
             mActualPage = 1
             mView?.clear()
             getMovies()
 
+        }else{
+            mView?.hideProgressBar()
         }
     }
 
@@ -93,4 +104,42 @@ class MoviesActivityPresenter : IMoviesActivityPresenter {
         mView?.navigate(MovieDetailActivity::class.java, bundle)
 
     }
+
+    override fun toggleFavorites() {
+        if (!mIsLoading) {
+            if (mIsShowingFavorites) {
+                mIsShowingFavorites = false
+                onRefresh()
+            } else {
+                getFavoritesMovies()
+            }
+
+        }
+    }
+
+    private fun getFavoritesMovies(){
+        mIsShowingFavorites = true
+        mIsLoading = true
+        mView?.showProgressBar()
+        mView?.clear()
+        val disposable = object : DisposableSingleObserver<List<Movie>>() {
+            override fun onSuccess(t: List<Movie>) {
+                mView?.showMovies(t)
+                mView?.hideProgressBar()
+                mDisposableBag.remove(this)
+                mIsLoading = false
+            }
+
+            override fun onError(e: Throwable) {
+                e.printStackTrace()
+                mView?.hideProgressBar()
+                mDisposableBag.remove(this)
+                mIsLoading = false
+            }
+        }
+        mDisposableBag.add(disposable)
+        mGetFavoriteMoviesUseCase.execute(null, disposable)
+    }
+
+    override fun isShowingFavorites(): Boolean = mIsShowingFavorites
 }

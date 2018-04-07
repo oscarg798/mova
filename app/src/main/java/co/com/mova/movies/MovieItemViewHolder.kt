@@ -9,9 +9,10 @@ import co.com.mova.R
 /**
  * Created by oscarg798 on 4/7/18.
  */
-class MovieItemViewHolder(mItemView:View):RecyclerView.ViewHolder(mItemView){
+class MovieItemViewHolder(mItemView: View) : RecyclerView.ViewHolder(mItemView) {
 
     val mIVMoviePoster = mItemView.findViewById<ImageView>(R.id.mIVMoviePoster)
     val mTVMovieTitle = mItemView.findViewById<TextView>(R.id.mTVMovieTitle)
     val mTVVoteAverage = mItemView.findViewById<TextView>(R.id.mTVVoteAverage)
+    val mTVGenres = mItemView.findViewById<TextView>(R.id.mTVGenres)
 }

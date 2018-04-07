@@ -1,7 +1,9 @@
 package co.com.mova.core.use_cases.movie
 
 import co.com.mova.core.entities.Movie
+import co.com.mova.core.use_cases.UseCaseUtils
 import co.com.mova.core.use_cases.base.SingleUseCase
+import co.com.mova.data.repositories.IGenreRepository
 import co.com.mova.data.repositories.IMovieRepository
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -17,12 +19,16 @@ class GetFavoriteMoviesUseCase(mSubscribeOnScheduler: Scheduler,
     @Inject
     lateinit var mMovieRepository: IMovieRepository
 
+    @Inject
+    lateinit var mGenreRepository: IGenreRepository
+
     override fun buildUseCase(params: Any?): Single<List<Movie>> {
         return Single.create {
             val dbFavoriteMovies = mMovieRepository.getFavoriteMovies()
             it.onSuccess(dbFavoriteMovies.map { dbMovie ->
                 Movie(dbMovie.id, dbMovie.voteCount, dbMovie.voteAverage, dbMovie.title,
-                        dbMovie.popularity, dbMovie.posterPath, ArrayList(), dbMovie.overview,
+                        dbMovie.popularity, dbMovie.posterPath,
+                        UseCaseUtils.instance.getMovieGenres(dbMovie.genreIds, mGenreRepository), dbMovie.overview,
                         dbMovie.releaseDate, dbMovie.favorite)
             }.sortedByDescending { it.popularity })
 

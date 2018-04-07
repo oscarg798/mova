@@ -2,6 +2,7 @@ package co.com.mova.core.use_cases.movie
 
 import co.com.mova.core.entities.Genre
 import co.com.mova.core.entities.Movie
+import co.com.mova.core.use_cases.UseCaseUtils
 import co.com.mova.core.use_cases.base.SingleUseCase
 import co.com.mova.core.use_cases.genre.GetMovieGenresUseCase
 import co.com.mova.data.repositories.IGenreRepository
@@ -30,20 +31,10 @@ class GetMovieUseCase(mSubscribeOnScheduler: Scheduler,
         return Single.create<Movie> {
             val dbMovie = mMovieRepository.getMovie(params)
             it.onSuccess(Movie(dbMovie!!.id, dbMovie.voteCount, dbMovie.voteAverage, dbMovie.title,
-                    dbMovie.popularity, dbMovie.posterPath, getMovieGenres(dbMovie.genreIds), dbMovie.overview,
+                    dbMovie.popularity, dbMovie.posterPath,
+                    UseCaseUtils.instance.getMovieGenres(dbMovie.genreIds, mGenreRepository), dbMovie.overview,
                     dbMovie.releaseDate, dbMovie.favorite))
         }
     }
 
-    private fun getMovieGenres(params: List<Int>):ArrayList<Genre> {
-        val genres = ArrayList<Genre>()
-        params.forEach {
-            mGenreRepository.getGenre(it)?.let {
-                genres.add(Genre(it.id, it.name))
-            }
-
-        }
-
-        return genres
-    }
 }

@@ -27,17 +27,29 @@ class MoviesAdapter(private val mMovies: ArrayList<Movie> = ArrayList(),
                 .into(holder.mIVMoviePoster)
         holder.mTVMovieTitle.text = mMovies[position].title
         holder.mTVVoteAverage.text = "${mMovies[position].voteAverage}"
+        holder.mTVGenres.text = getMovieGenres(mMovies[position])
         holder.itemView.setOnClickListener {
             mMoviesCallback.onClick(mMovies[holder.adapterPosition])
         }
 
     }
 
+    private fun getMovieGenres(movie: Movie): String {
+        var message = ""
+        val genres = movie.genres.take(2)
+        genres.forEach {
+            message += it.name
+            if (movie.genres.indexOf(it) < 1 && genres.size > 1) {
+                message += ", "
+            }
+        }
+        return message
+    }
+
     fun addMovies(movies: List<Movie>) {
         mMovies.addAll(movies)
         notifyDataSetChanged()
     }
-
 
 
     fun clear() {

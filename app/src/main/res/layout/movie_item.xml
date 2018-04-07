@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.3" />
+            app:layout_constraintGuide_percent="0.2" />
 
         <ImageView
             android:id="@+id/mIVMoviePoster"
@@ -44,6 +44,20 @@
             tools:text="Inception" />
 
         <TextView
+            android:id="@+id/mTVGenres"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textStyle="italic"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toEndOf="@+id/mIVMoviePoster"
+            app:layout_constraintTop_toBottomOf="@+id/mTVMovieTitle"
+            tools:text="Action" />
+
+        <TextView
             android:id="@+id/mTVVoteAverage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -60,7 +74,7 @@
             android:layout_height="20dp"
             android:src="@drawable/ic_star"
             app:layout_constraintStart_toEndOf="@+id/mTVVoteAverage"
-            app:layout_constraintTop_toBottomOf="@+id/mTVMovieTitle" />
+            app:layout_constraintTop_toBottomOf="@+id/mTVGenres" />
 
     </android.support.constraint.ConstraintLayout>
 

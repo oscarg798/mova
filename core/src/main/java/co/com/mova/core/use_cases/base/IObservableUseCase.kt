@@ -1,9 +1,9 @@
-package co.com.core.use_cases
+package co.com.mova.core.use_cases.base
 
 import io.reactivex.observers.DisposableObserver
 
 /**
- * Created by oscarg798 on 2/21/18.
+ * Created by oscarg798 on 4/7/18.
  */
 interface IObservableUseCase<Response, Params>{
 

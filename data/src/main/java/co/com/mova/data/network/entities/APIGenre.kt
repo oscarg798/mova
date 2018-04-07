@@ -1,4 +1,4 @@
-package co.com.mova.data.entities
+package co.com.mova.data.network.entities
 
 /**
  * Created by oscarg798 on 4/7/18.

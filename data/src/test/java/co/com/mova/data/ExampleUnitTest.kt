@@ -1,8 +1,21 @@
 package co.com.mova.data
 
-import org.junit.Test
+import it.cosenonjaviste.daggermock.DaggerMock
+import it.cosenonjaviste.daggermock.InjectFromComponent
+import co.com.mova.data.di.DataComponent
+import co.com.mova.data.di.NetworkModule
+import co.com.mova.data.di.RoutesModule
+import co.com.mova.data.local.responses.GetGenreResponse
+import co.com.mova.data.local.responses.GetPopularMoviesResponse
+import co.com.mova.data.network.entities.APIGenre
+import co.com.mova.data.network.entities.APIMovie
+import co.com.mova.data.network.routes.IGenreRoute
+import co.com.mova.data.network.routes.IMovieRoute
+import io.reactivex.observers.TestObserver
 
-import org.junit.Assert.*
+import org.junit.Rule
+import org.junit.Test
+import retrofit2.Retrofit
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -10,9 +23,38 @@ import org.junit.Assert.*
  * @see [Testing documentation](http://d.android.com/tools/testing)
  */
 class ExampleUnitTest {
+
+    @get:Rule
+    val rule = DaggerMock.rule<DataComponent>(NetworkModule(), RoutesModule())
+
+
+    @InjectFromComponent
+    lateinit var retrofit: Retrofit
+
+    @InjectFromComponent
+    lateinit var genreRoute: IGenreRoute
+
+    @InjectFromComponent
+    lateinit var mMovieRoute: IMovieRoute
+
+
     @Test
-    @Throws(Exception::class)
-    fun addition_isCorrect() {
-        assertEquals(4, (2 + 2).toLong())
+    fun shouldGetGenresWithoutErrors() {
+        val subscriber = TestObserver<GetGenreResponse>()
+        genreRoute.get().subscribeWith(subscriber)
+        subscriber.assertNoErrors()
+                .assertValueCount(1)
+                .assertComplete()
     }
+
+    @Test
+    fun shouldGetMoviesWithoutErrors() {
+        val subs = TestObserver<GetPopularMoviesResponse>()
+        mMovieRoute.getPopularMovies(1).subscribeWith(subs)
+        subs.assertNoErrors()
+                .assertValueCount(1)
+                .assertComplete()
+    }
+
+
 }

@@ -1,4 +1,4 @@
-package co.com.mova.data.entities
+package co.com.mova.data.local.entities
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey

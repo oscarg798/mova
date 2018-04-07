@@ -1,4 +1,4 @@
-package co.com.mova.data.entities
+package co.com.mova.data.local.entities
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
@@ -15,4 +15,5 @@ data class DBMovie(@PrimaryKey val id: Int,
                    val posterPath: String,
                    val genreIds: List<Int>,
                    val overview: String,
-                   val releaseDate: String)
+                   val releaseDate: String,
+                   val favorite: Boolean = false)

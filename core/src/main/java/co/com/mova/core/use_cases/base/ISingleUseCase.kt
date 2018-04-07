@@ -1,11 +1,10 @@
-package co.com.currencyexchange.core.use_cases.base
+package co.com.mova.core.use_cases.base
 
-import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.observers.DisposableSingleObserver
 
 /**
- * Created by oscarg798 on 2/21/18.
+ * Created by oscarg798 on 4/7/18.
  */
 interface ISingleUseCase<Response, Params>{
 

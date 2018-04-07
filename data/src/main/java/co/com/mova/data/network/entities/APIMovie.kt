@@ -1,4 +1,4 @@
-package co.com.mova.data.entities
+package co.com.mova.data.network.entities
 
 import com.google.gson.annotations.SerializedName
 

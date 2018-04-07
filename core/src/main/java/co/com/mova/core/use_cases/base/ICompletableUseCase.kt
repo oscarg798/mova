@@ -1,10 +1,10 @@
-package co.com.core.use_cases
+package co.com.mova.core.use_cases.base
 
 import io.reactivex.Completable
 import io.reactivex.observers.DisposableCompletableObserver
 
 /**
- * Created by oscarg798 on 2/21/18.
+ * Created by oscarg798 on 4/7/18.
  */
 interface ICompletableUseCase<Params> {
 

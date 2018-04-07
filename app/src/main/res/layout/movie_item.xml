@@ -35,7 +35,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:ellipsize="end"
             android:fontFamily="@font/roboto_bold"
+            android:maxLines="1"
             android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/mIVMoviePoster"
             app:layout_constraintTop_toBottomOf="@+id/guide1"
@@ -47,9 +49,18 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
             android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/mIVRank"
             app:layout_constraintStart_toStartOf="@+id/mTVMovieTitle"
-            app:layout_constraintTop_toBottomOf="@+id/mTVMovieTitle"
+            app:layout_constraintTop_toTopOf="@+id/mIVRank"
             tools:text="2.5" />
+
+        <ImageView
+            android:id="@+id/mIVRank"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_star"
+            app:layout_constraintStart_toEndOf="@+id/mTVVoteAverage"
+            app:layout_constraintTop_toBottomOf="@+id/mTVMovieTitle" />
 
     </android.support.constraint.ConstraintLayout>
 

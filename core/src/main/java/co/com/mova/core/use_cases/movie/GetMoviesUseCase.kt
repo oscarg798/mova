@@ -41,7 +41,7 @@ class GetMoviesUseCase(mSubscribeOnScheduler: Scheduler,
                         }
                         Movie(it.id, it.voteCount, it.voteAverage, it.title, it.popularity, it.posterPath,
                                 ArrayList(), it.overview, it.releaseDate, favorite)
-                    })
+                    }.sortedByDescending { it.popularity })
                 }
     }
 

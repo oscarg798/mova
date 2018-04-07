@@ -1,5 +1,6 @@
 package co.com.mova.di
 
+import co.com.mova.movies.MoviesActivityPresenter
 import co.com.mova.splash.SplashActivityPresenter
 import dagger.Component
 import javax.inject.Singleton
@@ -12,4 +13,6 @@ import javax.inject.Singleton
 interface AppComponent {
 
     fun inject(splashActivityPresenter: SplashActivityPresenter)
+
+    fun inject(moviesActivityPresenter: MoviesActivityPresenter)
 }

@@ -38,6 +38,8 @@ class MoviesAdapter(private val mMovies: ArrayList<Movie> = ArrayList(),
         notifyDataSetChanged()
     }
 
+
+
     fun clear() {
         mMovies.clear()
     }

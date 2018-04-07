@@ -11,4 +11,6 @@ interface IMoviesActivityView : IBaseView {
     fun showMovies(movies: List<Movie>)
 
     fun clear()
+
+
 }

@@ -1,8 +1,10 @@
 package co.com.mova.core.use_cases.movie
 
+import co.com.mova.core.entities.Genre
 import co.com.mova.core.entities.Movie
 import co.com.mova.core.use_cases.base.SingleUseCase
 import co.com.mova.core.use_cases.genre.GetMovieGenresUseCase
+import co.com.mova.data.repositories.IGenreRepository
 import co.com.mova.data.repositories.IMovieRepository
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -20,20 +22,28 @@ class GetMovieUseCase(mSubscribeOnScheduler: Scheduler,
     @Inject
     lateinit var mMovieRepository: IMovieRepository
 
-    override fun buildUseCase(params: Int): Single<Movie> {
-        return Single.create<Pair<Movie, List<Int>>> {
-            val dbMovie = mMovieRepository.getMovie(params)
-            it.onSuccess(Pair(Movie(dbMovie!!.id, dbMovie.voteCount, dbMovie.voteAverage, dbMovie.title,
-                    dbMovie.popularity, dbMovie.posterPath, ArrayList(), dbMovie.overview,
-                    dbMovie.releaseDate, dbMovie.favorite), dbMovie.genreIds))
+    @Inject
+    lateinit var mGenreRepository: IGenreRepository
 
-        }.flatMap { pair ->
-            GetMovieGenresUseCase(Schedulers.io(), Schedulers.io())
-                    .buildUseCase(pair.second)
-                    .map {
-                        pair.first.genres.addAll(it)
-                        pair.first
-                    }
+
+    override fun buildUseCase(params: Int): Single<Movie> {
+        return Single.create<Movie> {
+            val dbMovie = mMovieRepository.getMovie(params)
+            it.onSuccess(Movie(dbMovie!!.id, dbMovie.voteCount, dbMovie.voteAverage, dbMovie.title,
+                    dbMovie.popularity, dbMovie.posterPath, getMovieGenres(dbMovie.genreIds), dbMovie.overview,
+                    dbMovie.releaseDate, dbMovie.favorite))
         }
+    }
+
+    private fun getMovieGenres(params: List<Int>):ArrayList<Genre> {
+        val genres = ArrayList<Genre>()
+        params.forEach {
+            mGenreRepository.getGenre(it)?.let {
+                genres.add(Genre(it.id, it.name))
+            }
+
+        }
+
+        return genres
     }
 }

@@ -6,8 +6,10 @@ import android.support.v4.content.ContextCompat
 import android.view.View
 import co.com.mova.BaseApplication
 import co.com.mova.R
+import co.com.mova.data.IMAGE_URL
 import co.com.mova.data.MOVIE_ID
 import co.com.mova.data.YOUTUBE_BASE_URL
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 
 class MovieDetailActivity : AppCompatActivity(), IMovieDetailActivityView {
@@ -68,5 +70,10 @@ class MovieDetailActivity : AppCompatActivity(), IMovieDetailActivityView {
 
     override fun showMovieTrailer(key: String) {
         mTVMovieTrailerLink?.text = YOUTUBE_BASE_URL + key
+    }
+
+    override fun loadMoviePoster(poster: String) {
+        Picasso.get().load(IMAGE_URL + poster)
+                .into(mIVMoviePoster)
     }
 }

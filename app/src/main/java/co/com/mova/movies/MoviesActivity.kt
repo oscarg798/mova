@@ -1,5 +1,6 @@
 package co.com.mova.movies
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -47,7 +48,11 @@ class MoviesActivity : AppCompatActivity(), IMoviesActivityView {
     }
 
     override fun navigate(destination: Class<*>, arguments: Bundle?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val intent = Intent(this, destination)
+        arguments?.let {
+            intent.putExtras(arguments)
+        }
+        startActivity(intent)
     }
 
     override fun clear() {

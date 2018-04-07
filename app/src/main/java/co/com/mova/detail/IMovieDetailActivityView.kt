@@ -7,6 +7,8 @@ import co.com.post.IBaseView
  */
 interface IMovieDetailActivityView : IBaseView {
 
+    fun loadMoviePoster(poster:String)
+
     fun showMovieTitle(title: String)
 
     fun showMovieReleaseDate(date: String)

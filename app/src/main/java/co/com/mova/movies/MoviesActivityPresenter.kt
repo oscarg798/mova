@@ -2,8 +2,11 @@ package co.com.mova.movies
 
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.OnLifecycleEvent
+import android.os.Bundle
 import co.com.mova.core.entities.Movie
 import co.com.mova.core.use_cases.base.ISingleUseCase
+import co.com.mova.data.MOVIE_ID
+import co.com.mova.detail.MovieDetailActivity
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import javax.inject.Inject
@@ -85,5 +88,9 @@ class MoviesActivityPresenter : IMoviesActivityPresenter {
     }
 
     override fun onClick(movie: Movie) {
+        val bundle = Bundle()
+        bundle.putInt(MOVIE_ID, movie.id)
+        mView?.navigate(MovieDetailActivity::class.java, bundle)
+
     }
 }

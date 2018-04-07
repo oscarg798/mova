@@ -6,9 +6,11 @@ import android.text.TextUtils
 import co.com.mova.core.entities.Movie
 import co.com.mova.core.use_cases.base.ICompletableUseCase
 import co.com.mova.core.use_cases.base.ISingleUseCase
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
 import io.reactivex.observers.DisposableCompletableObserver
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 /**
@@ -42,11 +44,14 @@ class MovieDetailActivityPresenter : IMovieDetailActivityPresenter {
                             BiFunction<Movie, String, Pair<Movie, String>> { t1, t2 ->
                                 Pair(t1, t2)
                             })
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ (movie, trailerKey) ->
                         mView?.showMovieTitle(movie.title)
                         mView?.showMovieOverview(movie.overview)
                         mView?.showMovieReleaseDate(movie.releaseDate)
                         mView?.changeFavoriteIcon(movie.favorite)
+                        mView?.loadMoviePoster(movie.posterPath)
                         if (!TextUtils.isEmpty(trailerKey)) {
                             mView?.showMovieTrailer(trailerKey)
                         }

@@ -48,7 +48,7 @@ class MovieRepository : IMovieRepository {
 
     override fun getMovieVideos(id: Int): Observable<List<ApiMovieVideo>> {
         return mMovieRoute.getMovieVideos(id).map {
-            it.response
+            it.results
         }
     }
 

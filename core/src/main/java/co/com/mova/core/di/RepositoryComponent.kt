@@ -2,10 +2,7 @@ package co.com.mova.core.di
 
 import co.com.mova.core.use_cases.genre.GetGenresUseCase
 import co.com.mova.core.use_cases.genre.GetMovieGenresUseCase
-import co.com.mova.core.use_cases.movie.GetFavoriteMoviesUseCase
-import co.com.mova.core.use_cases.movie.GetMovieUseCase
-import co.com.mova.core.use_cases.movie.GetMoviesUseCase
-import co.com.mova.core.use_cases.movie.MakeMovieFavoriteUseCase
+import co.com.mova.core.use_cases.movie.*
 import dagger.Component
 import javax.inject.Singleton
 
@@ -24,8 +21,10 @@ interface RepositoryComponent {
 
     fun inject(getMovieUseCase: GetMovieUseCase)
 
-    fun inject(makeFavoriteMoviesUseCase: MakeMovieFavoriteUseCase)
+    fun inject(toggleFavoriteMoviesValue: ToggleMovieFavoriteValue)
 
-    fun inject(getMoviesUseCase:GetMoviesUseCase)
+    fun inject(getMoviesUseCase: GetMoviesUseCase)
+
+    fun inject(getMovieVideosUseCase: GetMovieVideosUseCase)
 
 }

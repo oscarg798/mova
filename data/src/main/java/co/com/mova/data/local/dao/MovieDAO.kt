@@ -26,4 +26,7 @@ interface MovieDAO {
 
     @Query("update movie set favorite=1 where id=:id")
     fun makeMovieFavorite(id: Int)
+
+    @Query("update movie set favorite=0 where id=:id")
+    fun removeMovieFromFavorite(id: Int)
 }

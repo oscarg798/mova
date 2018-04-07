@@ -1,4 +1,4 @@
-package co.com.mova.data.local.responses
+package co.com.mova.data.network.responses
 
 import co.com.mova.data.network.entities.APIGenre
 

@@ -14,4 +14,4 @@ data class Movie(val id: Int,
                  val genres: ArrayList<Genre>,
                  val overview: String,
                  val releaseDate: String,
-                 val favorite: Boolean)
+                 var favorite: Boolean)

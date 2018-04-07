@@ -5,10 +5,8 @@ import it.cosenonjaviste.daggermock.InjectFromComponent
 import co.com.mova.data.di.DataComponent
 import co.com.mova.data.di.NetworkModule
 import co.com.mova.data.di.RoutesModule
-import co.com.mova.data.local.responses.GetGenreResponse
-import co.com.mova.data.local.responses.GetPopularMoviesResponse
-import co.com.mova.data.network.entities.APIGenre
-import co.com.mova.data.network.entities.APIMovie
+import co.com.mova.data.network.responses.GetGenreResponse
+import co.com.mova.data.network.responses.GetPopularMoviesResponse
 import co.com.mova.data.network.routes.IGenreRoute
 import co.com.mova.data.network.routes.IMovieRoute
 import io.reactivex.observers.TestObserver

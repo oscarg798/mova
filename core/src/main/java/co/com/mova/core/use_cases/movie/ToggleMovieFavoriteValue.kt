@@ -9,16 +9,21 @@ import javax.inject.Inject
 /**
  * Created by oscarg798 on 4/7/18.
  */
-class MakeMovieFavoriteUseCase(mSubscribeOnScheduler: Scheduler,
+class ToggleMovieFavoriteValue(mSubscribeOnScheduler: Scheduler,
                                mObserverOnScheduler: Scheduler) :
-        CompletableUseCase<Int>(mSubscribeOnScheduler, mObserverOnScheduler) {
+        CompletableUseCase<Pair<Int, Boolean>>(mSubscribeOnScheduler, mObserverOnScheduler) {
 
     @Inject
     lateinit var mMovieRepository: IMovieRepository
 
-    override fun buildUseCase(params: Int): Completable {
+    override fun buildUseCase(params: Pair<Int, Boolean>): Completable {
         return Completable.create {
-            mMovieRepository.makeMovieFavorite(params)
+            if (params.second) {
+                mMovieRepository.makeMovieFavorite(params.first)
+            } else {
+                mMovieRepository.removeMovieFromFavorites(params.first)
+            }
+
             it.onComplete()
         }
     }

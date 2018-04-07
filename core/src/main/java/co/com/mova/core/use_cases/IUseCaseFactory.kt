@@ -35,5 +35,9 @@ interface IUseCaseFactory {
 
     fun getMakeMovieFavoriteUseCase(subscribeScheduler: Scheduler,
                                     observerScheduler: Scheduler):
-            CompletableUseCase<Int>
+            CompletableUseCase<Pair<Int,Boolean>>
+
+    fun getMovieVideosUseCase(subscribeScheduler: Scheduler,
+                              observerScheduler: Scheduler):
+            SingleUseCase<String, Int>
 }

@@ -3,10 +3,10 @@ package co.com.mova.data.repositories
 import co.com.mova.data.local.dao.MovieDAO
 import co.com.mova.data.local.entities.DBMovie
 import co.com.mova.data.network.entities.APIMovie
+import co.com.mova.data.network.entities.ApiMovieVideo
 import co.com.mova.data.network.routes.IMovieRoute
 import io.reactivex.Observable
 import javax.inject.Inject
-
 
 
 /**
@@ -34,7 +34,7 @@ class MovieRepository : IMovieRepository {
         return mMovieDAO.getFavorites()
     }
 
-    override fun makeMovieFavorite(id:Int){
+    override fun makeMovieFavorite(id: Int) {
         mMovieDAO.makeMovieFavorite(id)
     }
 
@@ -44,6 +44,16 @@ class MovieRepository : IMovieRepository {
 
     override fun update(dbMovie: DBMovie) {
         mMovieDAO.update(dbMovie)
+    }
+
+    override fun getMovieVideos(id: Int): Observable<List<ApiMovieVideo>> {
+        return mMovieRoute.getMovieVideos(id).map {
+            it.response
+        }
+    }
+
+    override fun removeMovieFromFavorites(id: Int) {
+        mMovieDAO.removeMovieFromFavorite(id)
     }
 
 

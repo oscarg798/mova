@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    tools:context="co.com.mova.detail.MovieDetailActivity">
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/mCLMovieDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/mIVMoviePoster"
+                android:layout_width="100dp"
+                android:layout_height="150dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_star" />
+
+            <ImageView
+                android:id="@+id/mIVFavorite"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_favorite_border"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/mTVMovieReleaseDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mIVMoviePoster"
+                tools:text="Release: 2018-25-01" />
+
+            <TextView
+                android:id="@+id/mTVMovieOverview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mTVMovieReleaseDate"
+                tools:text="Lorem ipmsum dolor " />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+        <ProgressBar
+            android:id="@+id/mPBMovieDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+
+</ScrollView>

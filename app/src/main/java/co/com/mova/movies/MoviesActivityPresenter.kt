@@ -10,7 +10,6 @@ import javax.inject.Inject
 
 /**
  * Created by oscarg798 on 4/7/18
- * telefonmo 2095731.
  */
 class MoviesActivityPresenter : IMoviesActivityPresenter {
 

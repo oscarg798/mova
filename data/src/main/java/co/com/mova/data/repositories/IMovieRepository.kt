@@ -2,6 +2,7 @@ package co.com.mova.data.repositories
 
 import co.com.mova.data.local.entities.DBMovie
 import co.com.mova.data.network.entities.APIMovie
+import co.com.mova.data.network.entities.ApiMovieVideo
 import io.reactivex.Observable
 
 /**
@@ -17,7 +18,11 @@ interface IMovieRepository {
 
     fun makeMovieFavorite(id: Int)
 
+    fun removeMovieFromFavorites(id: Int)
+
     fun insertMovie(dbMovie: DBMovie)
 
     fun update(dbMovie: DBMovie)
+
+    fun getMovieVideos(id: Int): Observable<List<ApiMovieVideo>>
 }

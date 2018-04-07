@@ -63,7 +63,14 @@ class UseCaseModule {
     @Provides
     @Singleton
     fun providesMakeMovieFavoriteUseCase(useCaseFactory: IUseCaseFactory):
-            ICompletableUseCase<Int> {
+            ICompletableUseCase<Pair<Int,Boolean>> {
         return useCaseFactory.getMakeMovieFavoriteUseCase(Schedulers.io(), AndroidSchedulers.mainThread())
+    }
+
+    @Provides
+    @Singleton
+    fun providesGetMovieVideoUseCase(useCaseFactory: IUseCaseFactory):
+            ISingleUseCase<String, Int> {
+        return useCaseFactory.getMovieVideosUseCase(Schedulers.io(), AndroidSchedulers.mainThread())
     }
 }

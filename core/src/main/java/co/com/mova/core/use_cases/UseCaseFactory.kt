@@ -10,10 +10,7 @@ import co.com.mova.core.use_cases.base.CompletableUseCase
 import co.com.mova.core.use_cases.base.SingleUseCase
 import co.com.mova.core.use_cases.genre.GetGenresUseCase
 import co.com.mova.core.use_cases.genre.GetMovieGenresUseCase
-import co.com.mova.core.use_cases.movie.GetFavoriteMoviesUseCase
-import co.com.mova.core.use_cases.movie.GetMovieUseCase
-import co.com.mova.core.use_cases.movie.GetMoviesUseCase
-import co.com.mova.core.use_cases.movie.MakeMovieFavoriteUseCase
+import co.com.mova.core.use_cases.movie.*
 import io.reactivex.Scheduler
 
 /**
@@ -70,11 +67,17 @@ class UseCaseFactory(mContext: Context) : IUseCaseFactory {
 
     override fun getMakeMovieFavoriteUseCase(subscribeScheduler: Scheduler,
                                              observerScheduler: Scheduler):
-            CompletableUseCase<Int> {
-        val useCase = MakeMovieFavoriteUseCase(subscribeScheduler, observerScheduler)
+            CompletableUseCase<Pair<Int,Boolean>> {
+        val useCase = ToggleMovieFavoriteValue(subscribeScheduler, observerScheduler)
         mRepositoryComponent?.inject(useCase)
         return useCase
     }
 
+
+    override fun getMovieVideosUseCase(subscribeScheduler: Scheduler, observerScheduler: Scheduler): SingleUseCase<String, Int> {
+        val useCase = GetMovieVideosUseCase(subscribeScheduler, observerScheduler)
+        mRepositoryComponent?.inject(useCase)
+        return useCase
+    }
 
 }

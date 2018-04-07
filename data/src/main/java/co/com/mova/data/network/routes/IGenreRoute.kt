@@ -1,7 +1,7 @@
 package co.com.mova.data.network.routes
 
 import co.com.mova.data.API_KEY
-import co.com.mova.data.local.responses.GetGenreResponse
+import co.com.mova.data.network.responses.GetGenreResponse
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query

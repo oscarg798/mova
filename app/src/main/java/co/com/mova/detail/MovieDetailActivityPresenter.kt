@@ -2,10 +2,12 @@ package co.com.mova.detail
 
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.OnLifecycleEvent
+import android.text.TextUtils
 import co.com.mova.core.entities.Movie
 import co.com.mova.core.use_cases.base.ICompletableUseCase
 import co.com.mova.core.use_cases.base.ISingleUseCase
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.functions.BiFunction
 import io.reactivex.observers.DisposableCompletableObserver
 import javax.inject.Inject
 
@@ -32,10 +34,35 @@ class MovieDetailActivityPresenter : IMovieDetailActivityPresenter {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun getMovieDetails() {
+        mView?.showProgressBar()
+        val id = mView?.getMovieId() ?: -1
+        if (id > 0) {
+            mGetMovieUseCase.getUseCase(id)
+                    .zipWith(mGetMovieVideoUseCase.getUseCase(id),
+                            BiFunction<Movie, String, Pair<Movie, String>> { t1, t2 ->
+                                Pair(t1, t2)
+                            })
+                    .subscribe({ (movie, trailerKey) ->
+                        mView?.showMovieTitle(movie.title)
+                        mView?.showMovieOverview(movie.overview)
+                        mView?.showMovieReleaseDate(movie.releaseDate)
+                        mView?.changeFavoriteIcon(movie.favorite)
+                        if (!TextUtils.isEmpty(trailerKey)) {
+                            mView?.showMovieTrailer(trailerKey)
+                        }
+                        mView?.hideProgressBar()
+
+                    }, { e ->
+                        e.printStackTrace()
+
+                    })
+
+
+        }
 
     }
 
-    override fun changeFavorite() {
+    override fun troggleFavorite() {
         mMovie?.let {
             mView?.showProgressBar()
             val disposable = object : DisposableCompletableObserver() {

@@ -4,19 +4,32 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.view.View
+import co.com.mova.BaseApplication
 import co.com.mova.R
 import co.com.mova.data.MOVIE_ID
+import co.com.mova.data.YOUTUBE_BASE_URL
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 
 class MovieDetailActivity : AppCompatActivity(), IMovieDetailActivityView {
 
+
+    lateinit var mPresenter: IMovieDetailActivityPresenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
+        initComponents()
     }
 
     override fun initComponents() {
-
+        val presenter = MovieDetailActivityPresenter()
+        (application as BaseApplication).appComponent.inject(presenter)
+        mPresenter = presenter
+        lifecycle.addObserver(mPresenter)
+        mPresenter.bind(this)
+        mIVFavorite?.setOnClickListener {
+            mPresenter.troggleFavorite()
+        }
     }
 
     override fun showProgressBar() {
@@ -50,6 +63,10 @@ class MovieDetailActivity : AppCompatActivity(), IMovieDetailActivityView {
     }
 
     override fun getMovieId(): Int {
-        return intent.getIntExtra(MOVIE_ID, 0)
+        return intent.getIntExtra(MOVIE_ID, -1)
+    }
+
+    override fun showMovieTrailer(key: String) {
+        mTVMovieTrailerLink?.text = YOUTUBE_BASE_URL + key
     }
 }

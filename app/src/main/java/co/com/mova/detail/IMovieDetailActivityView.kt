@@ -17,4 +17,7 @@ interface IMovieDetailActivityView : IBaseView {
 
     fun getMovieId(): Int
 
+    fun showMovieTrailer(key: String)
+
+
 }

@@ -7,6 +7,6 @@ import co.com.post.IBasePresenter
  */
 interface IMovieDetailActivityPresenter:IBasePresenter<IMovieDetailActivityView>{
 
-    fun changeFavorite()
+    fun troggleFavorite()
 
 }

@@ -9,8 +9,8 @@ interface IRepositoryFactory{
 
     val mDataComponent: DataComponent?
 
-    val mGenreRepository: IGenreRepository?
+    val mGenreRepository: IGenreRepository
 
-    val mMovieRepository: IMovieRepository?
+    val mMovieRepository: IMovieRepository
 
 }

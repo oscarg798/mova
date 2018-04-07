@@ -15,13 +15,13 @@ class RepositoryFactory(mContext: Context) : IRepositoryFactory {
                     .build()
 
 
-    override val mGenreRepository: IGenreRepository?
+    override val mGenreRepository: IGenreRepository
         get()  {
             val repo = GenreRepository()
             mDataComponent?.inject(repo)
             return repo
         }
-    override val mMovieRepository: IMovieRepository?
+    override val mMovieRepository: IMovieRepository
         get() {
             val repo = MovieRepository()
             mDataComponent?.inject(repo)

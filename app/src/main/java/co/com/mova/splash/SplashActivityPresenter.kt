@@ -2,7 +2,7 @@ package co.com.mova.splash
 
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.OnLifecycleEvent
-import co.com.mova.MoviesActivity
+import co.com.mova.movies.MoviesActivity
 import co.com.mova.core.entities.Genre
 import co.com.mova.core.use_cases.base.ISingleUseCase
 import io.reactivex.disposables.CompositeDisposable

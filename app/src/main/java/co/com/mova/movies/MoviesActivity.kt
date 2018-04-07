@@ -1,7 +1,8 @@
-package co.com.mova
+package co.com.mova.movies
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import co.com.mova.R
 
 class MoviesActivity : AppCompatActivity() {
 

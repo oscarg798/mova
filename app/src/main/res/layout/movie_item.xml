@@ -15,8 +15,16 @@
 
         <android.support.constraint.Guideline
             android:id="@+id/guide1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.9" />
+
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guide2"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.2" />
 
@@ -39,42 +47,55 @@
             android:fontFamily="@font/roboto_bold"
             android:maxLines="1"
             android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/guide1"
             app:layout_constraintStart_toEndOf="@+id/mIVMoviePoster"
-            app:layout_constraintTop_toBottomOf="@+id/guide1"
+            app:layout_constraintTop_toBottomOf="@+id/guide2"
             tools:text="Inception" />
+
+        <TextView
+            android:id="@+id/mTVMovieReleaseDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/roboto"
+            android:maxLines="1"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/mTVMovieTitle"
+            app:layout_constraintStart_toEndOf="@+id/mIVMoviePoster"
+            app:layout_constraintTop_toBottomOf="@+id/mTVMovieTitle"
+            tools:text="June 9 2018" />
 
         <TextView
             android:id="@+id/mTVGenres"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto"
             android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
             android:ellipsize="end"
+            android:fontFamily="@font/roboto"
             android:maxLines="2"
             android:textStyle="italic"
-            android:layout_marginStart="16dp"
+            app:layout_constraintEnd_toEndOf="@+id/mTVMovieTitle"
             app:layout_constraintStart_toEndOf="@+id/mIVMoviePoster"
-            app:layout_constraintTop_toBottomOf="@+id/mTVMovieTitle"
+            app:layout_constraintTop_toBottomOf="@+id/mTVMovieReleaseDate"
             tools:text="Action" />
 
-        <TextView
-            android:id="@+id/mTVVoteAverage"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/mIVRank"
-            app:layout_constraintStart_toStartOf="@+id/mTVMovieTitle"
-            app:layout_constraintTop_toTopOf="@+id/mIVRank"
-            tools:text="2.5" />
 
-        <ImageView
-            android:id="@+id/mIVRank"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_star"
-            app:layout_constraintStart_toEndOf="@+id/mTVVoteAverage"
-            app:layout_constraintTop_toBottomOf="@+id/mTVGenres" />
+        <com.arbelkilani.bicoloredprogress.BiColoredProgress
+            android:id="@+id/mBCPMovieVotes"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:inner_alpha_factor="0.0"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/mTVMovieTitle"
+            app:layout_constraintTop_toTopOf="parent"
+            app:left_sided_color="@color/colorAccent"
+            app:right_sided_color="@color/colorPrimary"
+            app:stroke_width="4dp" />
+
 
     </android.support.constraint.ConstraintLayout>
 

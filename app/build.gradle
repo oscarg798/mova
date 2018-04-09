@@ -51,9 +51,8 @@ dependencies {
     testCompile 'com.github.fabioCollini.daggermock:daggermock-kotlin:0.8.4'
     androidTestCompile 'com.github.fabioCollini.daggermock:daggermock-kotlin:0.8.4'
     androidTestCompile 'org.mockito:mockito-android:2.6.1'
-
     implementation 'com.squareup.picasso:picasso:2.71828'
-
+    compile 'com.github.arbelkilani:BiColored-Progress:v1.2'
     testCompile 'org.powermock:powermock-api-mockito2:2.0.0-beta.5'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
@@ -62,4 +61,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     compile project(':core')
+    implementation files('libs/YouTubeAndroidPlayerApi.jar')
 }

@@ -43,7 +43,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/mIVMoviePoster"
-                tools:text="Release: 2018-25-01" />
+                tools:text="June 9 2018" />
 
             <TextView
                 android:id="@+id/mTVMovieOverview"
@@ -56,18 +56,16 @@
                 app:layout_constraintTop_toBottomOf="@+id/mTVMovieReleaseDate"
                 tools:text="Lorem ipmsum dolor " />
 
-            <TextView
-                android:id="@+id/mTVMovieTrailerLink"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:autoLink="web"
-                android:fontFamily="@font/roboto"
-                android:maxLines="1"
+
+            <fragment
+                android:id="@+id/mYoutubeFragment"
+                android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"
+                android:layout_width="match_parent"
                 android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/mTVMovieOverview"
-                tools:text="www.youtube.com" />
+                android:layout_height="200dp" />
 
 
         </android.support.constraint.ConstraintLayout>

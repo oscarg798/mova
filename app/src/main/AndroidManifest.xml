@@ -27,8 +27,12 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        <meta-data
+            android:name="."
+            android:value="AlOtOfNumBersAndLetters123" />
 
-        <activity android:name=".detail.MovieDetailActivity"/>
+
+        <activity android:name=".detail.MovieDetailActivity" />
     </application>
 
 </manifest>

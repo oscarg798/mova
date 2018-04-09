@@ -7,12 +7,17 @@ import co.com.mova.R
 import co.com.mova.core.entities.Movie
 import co.com.mova.data.IMAGE_URL
 import com.squareup.picasso.Picasso
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Created by oscarg798 on 4/7/18.
  */
 class MoviesAdapter(private val mMovies: ArrayList<Movie> = ArrayList(),
                     private val mMoviesCallback: IMoviesCallback) : RecyclerView.Adapter<MovieItemViewHolder>() {
+
+    private val mSDF = SimpleDateFormat( "MMMM dd, yyyy", Locale.getDefault())
+    private val mDateParser = SimpleDateFormat("yyyy-MM-dd",Locale.getDefault())
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieItemViewHolder {
         return MovieItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false))
@@ -26,8 +31,10 @@ class MoviesAdapter(private val mMovies: ArrayList<Movie> = ArrayList(),
         Picasso.get().load("$IMAGE_URL${mMovies[position].posterPath}")
                 .into(holder.mIVMoviePoster)
         holder.mTVMovieTitle.text = mMovies[position].title
-        holder.mTVVoteAverage.text = "${mMovies[position].voteAverage}"
+        holder.mBCPMovieVotes.setProgress(mMovies[position].voteAverage * 10)
+        holder.mBCPMovieVotes.setAnimated(false)
         holder.mTVGenres.text = getMovieGenres(mMovies[position])
+        holder.mTVMovieReleaseDate.text = mSDF.format(mDateParser.parse(mMovies[position].releaseDate))
         holder.itemView.setOnClickListener {
             mMoviesCallback.onClick(mMovies[holder.adapterPosition])
         }

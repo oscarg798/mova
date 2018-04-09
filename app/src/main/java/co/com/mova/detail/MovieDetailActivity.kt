@@ -9,13 +9,24 @@ import co.com.mova.R
 import co.com.mova.data.IMAGE_URL
 import co.com.mova.data.MOVIE_ID
 import co.com.mova.data.YOUTUBE_BASE_URL
+import com.google.android.youtube.player.YouTubeInitializationResult
+import com.google.android.youtube.player.YouTubePlayer
+import com.google.android.youtube.player.YouTubePlayerSupportFragment
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_movie_detail.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MovieDetailActivity : AppCompatActivity(), IMovieDetailActivityView {
 
 
     lateinit var mPresenter: IMovieDetailActivityPresenter
+
+    private var mYoutubePlayer: YouTubePlayer? = null
+
+    private val mSDF = SimpleDateFormat( "MMMM dd, yyyy", Locale.getDefault())
+
+    private val mDateParser = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +43,19 @@ class MovieDetailActivity : AppCompatActivity(), IMovieDetailActivityView {
         mIVFavorite?.setOnClickListener {
             mPresenter.troggleFavorite()
         }
+
+        (mYoutubeFragment as? YouTubePlayerSupportFragment)?.initialize("AIzaSyAs3J7mLfJwcUy9d5fK8OcEeITFyonFWnU", object : YouTubePlayer.OnInitializedListener {
+            override fun onInitializationSuccess(p0: YouTubePlayer.Provider?, p1: YouTubePlayer?, p2: Boolean) {
+                mYoutubePlayer = p1
+
+
+            }
+
+            override fun onInitializationFailure(p0: YouTubePlayer.Provider?, p1: YouTubeInitializationResult?) {
+
+
+            }
+        })
     }
 
     override fun showProgressBar() {
@@ -49,7 +73,7 @@ class MovieDetailActivity : AppCompatActivity(), IMovieDetailActivityView {
     }
 
     override fun showMovieReleaseDate(date: String) {
-        mTVMovieReleaseDate?.text = "Release: $date"
+        mTVMovieReleaseDate?.text = "${mSDF.format(mDateParser.parse(date))}"
     }
 
     override fun navigate(destination: Class<*>, arguments: Bundle?) {
@@ -69,7 +93,7 @@ class MovieDetailActivity : AppCompatActivity(), IMovieDetailActivityView {
     }
 
     override fun showMovieTrailer(key: String) {
-        mTVMovieTrailerLink?.text = YOUTUBE_BASE_URL + key
+        mYoutubePlayer?.loadVideo(key)
     }
 
     override fun loadMoviePoster(poster: String) {

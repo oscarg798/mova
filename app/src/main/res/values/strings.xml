@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Mova</string>
     <string name="favorites_label">favorites</string>
+    <string name="report_label">Report</string>
 </resources>

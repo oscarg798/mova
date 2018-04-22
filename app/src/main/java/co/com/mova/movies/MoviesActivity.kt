@@ -39,7 +39,6 @@ class MoviesActivity : AppCompatActivity(), IMoviesActivityView {
         mRVMovies?.adapter = MoviesAdapter(mMoviesCallback = mPresenter)
         mRVMovies?.addOnScrollListener(EndLessScrollListener(mPresenter))
         mSRLMovies?.setOnRefreshListener(mPresenter)
-        mSRLMovies?.isEnabled = false
         mFABFilter?.setOnClickListener {
             mPresenter.toggleFavorites()
         }

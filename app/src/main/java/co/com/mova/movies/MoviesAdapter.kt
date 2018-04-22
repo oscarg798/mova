@@ -1,5 +1,9 @@
 package co.com.mova.movies
 
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.ShapeDrawable
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.PopupMenu
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -34,6 +38,9 @@ class MoviesAdapter(private val mMovies: ArrayList<Movie> = ArrayList(),
         holder.mTVGenres?.text = getMovieGenres(mMovies[position])
         holder.mTVMovieReleaseDate?.text = formatMovieReleaseDate(mMovies[position])
 
+        (holder.mIVFavorite?.background as? GradientDrawable)?.setColor( if (mMovies[position].favorite)
+            ContextCompat.getColor(holder.itemView.context, R.color.colorAccent) else Color.GRAY)
+
         holder.mIVOptions?.setOnClickListener {
             val popUp = PopupMenu(it.context, it)
             popUp.inflate(R.menu.movie_item_menu)
@@ -41,7 +48,7 @@ class MoviesAdapter(private val mMovies: ArrayList<Movie> = ArrayList(),
         }
 
         holder.itemView?.setOnClickListener {
-            if(it.id != R.id.mIVOptions){
+            if (it.id != R.id.mIVOptions) {
                 mMoviesCallback.onClick(mMovies[holder.adapterPosition])
             }
 

@@ -21,13 +21,34 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.25" />
 
+    <android.support.constraint.Guideline
+        android:id="@+id/mGuide3"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/mGuide4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/mGuide5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
+
 
     <android.support.v7.widget.CardView
         android:id="@+id/mCVMovieDetail"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="24dp"
         android:translationZ="1dp"
         app:cardBackgroundColor="@color/white"
@@ -44,7 +65,7 @@
 
 
             <android.support.constraint.Guideline
-                android:id="@+id/mGuide3"
+                android:id="@+id/mGuide6"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -55,13 +76,13 @@
                 android:id="@+id/mTVMovieTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/archivo_black"
                 android:maxLines="1"
-                android:layout_marginEnd="8dp"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toStartOf="@+id/mIVOptions"
-                app:layout_constraintStart_toEndOf="@id/mGuide3"
+                app:layout_constraintStart_toEndOf="@id/mGuide6"
                 tools:text="Moonlight" />
 
 
@@ -92,10 +113,10 @@
                 tools:rating="3.5" />
 
             <ImageView
+                android:id="@+id/mIVOptions"
                 android:layout_width="0dp"
                 android:layout_height="45dp"
                 android:padding="8dp"
-                android:id="@+id/mIVOptions"
                 android:src="@drawable/ic_options"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/mTVMovieTitle" />
@@ -110,7 +131,7 @@
         android:id="@+id/mIVMoviePoster"
         android:layout_width="0dp"
         android:layout_height="110dp"
-        android:elevation="20dp"
+        android:elevation="5dp"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toStartOf="@+id/mGuide1"
         app:layout_constraintStart_toStartOf="parent"
@@ -132,6 +153,19 @@
         app:layout_constraintStart_toStartOf="@+id/mIVMoviePoster"
         app:layout_constraintTop_toBottomOf="@+id/mIVMoviePoster"
         tools:text="Jun '18" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_favorite_movie"
+        android:elevation="5dp"
+        android:id="@+id/mIVFavorite"
+        android:padding="8dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_favorite"
+        app:layout_constraintBottom_toBottomOf="@+id/mGuide5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/mGuide4" />
 
 </android.support.constraint.ConstraintLayout>
 

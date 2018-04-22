@@ -20,4 +20,5 @@ class MovieItemViewHolder(mItemView: View) : RecyclerView.ViewHolder(mItemView) 
     val mTVGenres = mItemView.findViewById<TextView>(R.id.mTVGenres)
     val mTVMovieReleaseDate = mItemView.findViewById<TextView>(R.id.mTVMovieReleaseDate)
     val mIVOptions = mItemView.findViewById<ImageView>(R.id.mIVOptions)
+    val mIVFavorite = mItemView.findViewById<ImageView>(R.id.mIVFavorite)
 }

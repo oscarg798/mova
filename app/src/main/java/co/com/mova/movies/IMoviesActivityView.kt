@@ -12,5 +12,7 @@ interface IMoviesActivityView : IBaseView {
 
     fun clear()
 
+    fun getMoviesInAdapter(): ArrayList<Movie>?
+
 
 }

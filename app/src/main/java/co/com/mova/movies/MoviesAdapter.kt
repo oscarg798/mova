@@ -92,5 +92,7 @@ class MoviesAdapter(private val mMovies: ArrayList<Movie> = ArrayList(),
         notifyDataSetChanged()
     }
 
+    fun getMovies() = mMovies
+
 
 }

@@ -3,9 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
+
     <item
-        android:id="@+id/favorite"
-        android:icon="@drawable/ic_favorite_border_white"
-        android:title="@string/favorites_label"
-        app:showAsAction="ifRoom" />
+        android:id="@+id/action_search"
+        android:icon="@drawable/ic_search"
+        android:title="@string/search"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView"
+        />
 </menu>

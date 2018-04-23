@@ -2,6 +2,7 @@ package co.com.mova.di
 
 import co.com.mova.detail.IMovieDetailActivityPresenter
 import co.com.mova.detail.MovieDetailActivityPresenter
+import co.com.mova.detail.cast.CastFragmentPresenter
 import co.com.mova.detail.info.MovieInfoFragmentPresenter
 import co.com.mova.movies.MoviesActivityPresenter
 import co.com.mova.splash.SplashActivityPresenter
@@ -22,4 +23,6 @@ interface AppComponent {
     fun inject(moviesDetailActivityPresenter: MovieDetailActivityPresenter)
 
     fun inject(movieInfoFragmentPresenter: MovieInfoFragmentPresenter)
+
+    fun inject(castFragmentPresenter: CastFragmentPresenter)
 }

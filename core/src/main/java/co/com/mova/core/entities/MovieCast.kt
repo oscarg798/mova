@@ -5,5 +5,5 @@ package co.com.mova.core.entities
  */
 data class MovieCast(val id: Int,
                      val name: String,
-                     val profilePath: String,
+                     val profilePath: String?,
                      val character: String)

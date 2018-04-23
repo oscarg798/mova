@@ -3,6 +3,8 @@ package co.com.mova.di
 import android.content.Context
 import co.com.mova.core.entities.Genre
 import co.com.mova.core.entities.Movie
+import co.com.mova.core.entities.MovieCast
+import co.com.mova.core.entities.MovieReview
 import co.com.mova.core.use_cases.IUseCaseFactory
 import co.com.mova.core.use_cases.UseCaseFactory
 import co.com.mova.core.use_cases.base.ICompletableUseCase
@@ -72,5 +74,17 @@ class UseCaseModule {
     fun providesGetMovieVideoUseCase(useCaseFactory: IUseCaseFactory):
             ISingleUseCase<String, Int> {
         return useCaseFactory.getMovieVideosUseCase(Schedulers.io(), AndroidSchedulers.mainThread())
+    }
+
+    @Provides
+    @Singleton
+    fun providesGetMovieCastUseCase(useCaseFactory: IUseCaseFactory):ISingleUseCase<List<MovieCast>,Int>{
+        return useCaseFactory.getMovieCastUseCase(Schedulers.io(),AndroidSchedulers.mainThread())
+    }
+
+    @Provides
+    @Singleton
+    fun providesGeTMovieReviewUseCase(useCaseFactory: IUseCaseFactory):ISingleUseCase<List<MovieReview>,Int>{
+        return useCaseFactory.getMovieReviewsUseCase(Schedulers.io(),AndroidSchedulers.mainThread())
     }
 }

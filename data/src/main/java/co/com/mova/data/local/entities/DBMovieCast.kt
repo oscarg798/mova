@@ -9,6 +9,6 @@ import android.arch.persistence.room.PrimaryKey
 @Entity(tableName = "movie_cast")
 data class DBMovieCast(@PrimaryKey val id: Int,
                        val name: String,
-                       val profilePath: String,
+                       val profilePath: String?,
                        val character: String,
                        val movieIds: List<Int>)

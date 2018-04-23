@@ -9,6 +9,7 @@ import co.com.mova.R
 import co.com.mova.core.entities.Movie
 import co.com.mova.data.IMAGE_URL
 import co.com.mova.data.MOVIE_ID
+import co.com.mova.detail.cast.CastFragment
 import co.com.mova.detail.info.MovieInfoFragment
 import com.google.android.youtube.player.YouTubePlayer
 import com.squareup.picasso.Picasso
@@ -67,8 +68,8 @@ class MovieDetailActivity : AppCompatActivity(), IMovieDetailActivityView {
     override fun setUpViewPager(movie: Movie) {
         mVPMovies?.adapter = ViewPagerAdapter(supportFragmentManager,
                 arrayListOf(MovieInfoFragment.newInstance(movie),
-                        MovieInfoFragment.newInstance(movie)),
-                arrayListOf("Info", "Review"))
+                        CastFragment.newInstance(movie.id)),
+                arrayListOf("Info", "Cast"))
 
         mTLMovieDetail?.setupWithViewPager(mVPMovies)
 

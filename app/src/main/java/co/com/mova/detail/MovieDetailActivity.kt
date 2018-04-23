@@ -11,6 +11,7 @@ import co.com.mova.data.IMAGE_URL
 import co.com.mova.data.MOVIE_ID
 import co.com.mova.detail.cast.CastFragment
 import co.com.mova.detail.info.MovieInfoFragment
+import co.com.mova.detail.review.ReviewFragment
 import com.google.android.youtube.player.YouTubePlayer
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_movie_detail.*
@@ -68,8 +69,9 @@ class MovieDetailActivity : AppCompatActivity(), IMovieDetailActivityView {
     override fun setUpViewPager(movie: Movie) {
         mVPMovies?.adapter = ViewPagerAdapter(supportFragmentManager,
                 arrayListOf(MovieInfoFragment.newInstance(movie),
-                        CastFragment.newInstance(movie.id)),
-                arrayListOf("Info", "Cast"))
+                        CastFragment.newInstance(movie.id),
+                        ReviewFragment.newInstance(movie.id)),
+                arrayListOf("Info", "Cast", "Review"))
 
         mTLMovieDetail?.setupWithViewPager(mVPMovies)
 

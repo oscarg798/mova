@@ -1,8 +1,11 @@
 package co.com.mova.detail
 
 import android.os.Bundle
+import android.support.animation.SpringAnimation
+import android.support.animation.SpringForce
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.view.MotionEvent
 import android.view.View
 import co.com.mova.BaseApplication
 import co.com.mova.R
@@ -17,6 +20,11 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 import java.text.SimpleDateFormat
 import java.util.*
+import android.support.v4.content.ContextCompat.startActivity
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
+
 
 class MovieDetailActivity : AppCompatActivity(), IMovieDetailActivityView {
 
@@ -49,6 +57,56 @@ class MovieDetailActivity : AppCompatActivity(), IMovieDetailActivityView {
 
         mIVFavorite?.setOnClickListener {
             mPresenter.troggleFavorite()
+        }
+
+        mIVMoviePoster?.viewTreeObserver?.addOnGlobalLayoutListener {
+
+            val animation = SpringAnimation(mIVMoviePoster, SpringAnimation.Y)
+            val force = SpringForce(mIVMoviePoster.y)
+            force.stiffness = SpringForce.STIFFNESS_MEDIUM
+            force.dampingRatio = SpringForce.DAMPING_RATIO_LOW_BOUNCY
+            animation.spring = force
+
+            var dy = 0f
+
+            mIVMoviePoster?.setOnTouchListener { v, e ->
+
+                when (e.actionMasked) {
+                    MotionEvent.ACTION_DOWN -> {
+                        dy = v.y - e.rawY
+                        animation.skipToEnd()
+                    }
+                    MotionEvent.ACTION_UP -> {
+                        animation.start()
+                    }
+                    MotionEvent.ACTION_MOVE -> {
+                        v.animate().y(e.rawY + dy)
+                                .setDuration(0)
+                                .start()
+                    }
+                }
+
+                true
+
+            }
+
+
+        }
+
+        mIVPlay?.setOnClickListener {
+            val key = mPresenter.getMovieTrailerKey()
+            key?.let {
+                val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:$it"))
+                val webIntent = Intent(Intent.ACTION_VIEW,
+                        Uri.parse("http://www.youtube.com/watch?v=$it"))
+                try {
+                    startActivity(appIntent)
+                } catch (ex: ActivityNotFoundException) {
+                    startActivity(webIntent)
+                }
+            }
+
+
         }
 
 
@@ -123,7 +181,7 @@ class MovieDetailActivity : AppCompatActivity(), IMovieDetailActivityView {
 
 
     override fun changeFavoriteIcon(isFavorite: Boolean) {
-        val id = if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_favorite_border
+        val id = if (isFavorite) R.drawable.ic_favorite_white else R.drawable.ic_favorite_border
         mIVFavorite?.setImageDrawable(ContextCompat.getDrawable(this, id))
     }
 

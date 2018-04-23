@@ -25,6 +25,8 @@ class MovieDetailActivityPresenter : IMovieDetailActivityPresenter {
 
     private var mMovie: Movie? = null
 
+    private var mMovieTrailer: String? = null
+
     @Inject
     lateinit var mGetMovieVideoUseCase: ISingleUseCase<String, Int>
 
@@ -55,6 +57,7 @@ class MovieDetailActivityPresenter : IMovieDetailActivityPresenter {
                         mView?.changeFavoriteIcon(movie.favorite)
                         mView?.loadMoviePoster(movie.posterPath)
                         if (!TextUtils.isEmpty(trailerKey)) {
+                            mMovieTrailer = trailerKey
                             mView?.showMovieTrailer(trailerKey)
                         }
                         mView?.hideProgressBar()
@@ -95,4 +98,6 @@ class MovieDetailActivityPresenter : IMovieDetailActivityPresenter {
     fun onStop() {
         mDisposableBag.clear()
     }
+
+    override fun getMovieTrailerKey():String? = mMovieTrailer
 }

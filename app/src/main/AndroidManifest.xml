@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".movies.MoviesActivity"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".splash.SplashActivity"
@@ -34,7 +35,12 @@
 
 
         <activity android:name=".detail.MovieDetailActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".movies.MoviesActivity" />
+        </activity>
     </application>
 
 </manifest>

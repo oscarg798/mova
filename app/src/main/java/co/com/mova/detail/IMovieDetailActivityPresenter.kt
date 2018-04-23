@@ -9,4 +9,6 @@ interface IMovieDetailActivityPresenter:IBasePresenter<IMovieDetailActivityView>
 
     fun troggleFavorite()
 
+    fun getMovieTrailerKey():String?
+
 }

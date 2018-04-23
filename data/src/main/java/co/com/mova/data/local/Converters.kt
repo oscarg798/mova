@@ -14,10 +14,9 @@ class Converters {
     }
 
     @TypeConverter
-    fun stringToArrayListInt(str: String?): List<Int> {
+    fun stringToListInt(str: String?): List<Int> {
 
             return Gson().fromJson(str, object : TypeToken<List<Int>>() {}.type)
-
 
     }
 

@@ -3,6 +3,8 @@ package co.com.mova.core.use_cases
 import co.com.mova.core.di.RepositoryComponent
 import co.com.mova.core.entities.Genre
 import co.com.mova.core.entities.Movie
+import co.com.mova.core.entities.MovieCast
+import co.com.mova.core.entities.MovieReview
 import co.com.mova.core.use_cases.base.CompletableUseCase
 import co.com.mova.core.use_cases.base.SingleUseCase
 import io.reactivex.Scheduler
@@ -40,4 +42,10 @@ interface IUseCaseFactory {
     fun getMovieVideosUseCase(subscribeScheduler: Scheduler,
                               observerScheduler: Scheduler):
             SingleUseCase<String, Int>
+
+    fun getMovieReviewsUseCase(subscribeScheduler: Scheduler,
+                               observerScheduler: Scheduler):SingleUseCase<List<MovieReview>, Int>
+
+    fun getMovieCastUseCase(subscribeScheduler: Scheduler,
+                            observerScheduler: Scheduler):SingleUseCase<List<MovieCast>, Int>
 }

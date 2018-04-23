@@ -5,7 +5,9 @@ import android.content.Context
 import co.com.mova.data.DATABASE_NAME
 import co.com.mova.data.local.AppDatabase
 import co.com.mova.data.local.dao.GenreDAO
+import co.com.mova.data.local.dao.MovieCastDAO
 import co.com.mova.data.local.dao.MovieDAO
+import co.com.mova.data.local.dao.MovieReviewDAO
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -30,6 +32,12 @@ class DatabaseModule(private val mContext: Context){
 
     @Provides
     fun providesMovieDAO(appDatabase: AppDatabase):MovieDAO = appDatabase.movieDAO()
+
+    @Provides
+    fun providesMovieReviewsDAO(appDatabase: AppDatabase):MovieReviewDAO = appDatabase.movieReviewDAO()
+
+    @Provides
+    fun providesMovieCastDAO(appDatabase: AppDatabase):MovieCastDAO = appDatabase.movieCastDAO()
 
 
 

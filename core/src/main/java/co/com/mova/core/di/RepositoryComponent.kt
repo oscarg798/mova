@@ -27,4 +27,8 @@ interface RepositoryComponent {
 
     fun inject(getMovieVideosUseCase: GetMovieVideosUseCase)
 
+    fun inject(getMovieReviewsUseCase: GetMovieReviewsUseCase)
+
+    fun inject(getMovieCastUseCase: GetMovieCastUseCase)
+
 }

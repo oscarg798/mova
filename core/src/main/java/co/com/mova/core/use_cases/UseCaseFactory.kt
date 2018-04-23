@@ -6,6 +6,8 @@ import co.com.mova.core.di.RepositoryComponent
 import co.com.mova.core.di.RepositoryModule
 import co.com.mova.core.entities.Genre
 import co.com.mova.core.entities.Movie
+import co.com.mova.core.entities.MovieCast
+import co.com.mova.core.entities.MovieReview
 import co.com.mova.core.use_cases.base.CompletableUseCase
 import co.com.mova.core.use_cases.base.SingleUseCase
 import co.com.mova.core.use_cases.genre.GetGenresUseCase
@@ -67,7 +69,7 @@ class UseCaseFactory(mContext: Context) : IUseCaseFactory {
 
     override fun getMakeMovieFavoriteUseCase(subscribeScheduler: Scheduler,
                                              observerScheduler: Scheduler):
-            CompletableUseCase<Pair<Int,Boolean>> {
+            CompletableUseCase<Pair<Int, Boolean>> {
         val useCase = ToggleMovieFavoriteValue(subscribeScheduler, observerScheduler)
         mRepositoryComponent?.inject(useCase)
         return useCase
@@ -76,6 +78,18 @@ class UseCaseFactory(mContext: Context) : IUseCaseFactory {
 
     override fun getMovieVideosUseCase(subscribeScheduler: Scheduler, observerScheduler: Scheduler): SingleUseCase<String, Int> {
         val useCase = GetMovieVideosUseCase(subscribeScheduler, observerScheduler)
+        mRepositoryComponent?.inject(useCase)
+        return useCase
+    }
+
+    override fun getMovieCastUseCase(subscribeScheduler: Scheduler, observerScheduler: Scheduler): SingleUseCase<List<MovieCast>, Int> {
+        val useCase = GetMovieCastUseCase(subscribeScheduler, observerScheduler)
+        mRepositoryComponent?.inject(useCase)
+        return useCase
+    }
+
+    override fun getMovieReviewsUseCase(subscribeScheduler: Scheduler, observerScheduler: Scheduler): SingleUseCase<List<MovieReview>, Int> {
+        val useCase = GetMovieReviewsUseCase(subscribeScheduler, observerScheduler)
         mRepositoryComponent?.inject(useCase)
         return useCase
     }

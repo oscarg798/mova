@@ -1,84 +1,247 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="16dp"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context="co.com.mova.detail.MovieDetailActivity">
 
-
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/mCLMovieDetail"
+    <android.support.constraint.Guideline
+        android:id="@+id/mGuide1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/mGuide2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/mGuide3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.20" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/mGuide4"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.4" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/mGuide5"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/mGuide6"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/mGuide7"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.08" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/mGuide9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.45" />
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/mAppbar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_toolbar"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:layout_constraintBottom_toBottomOf="@+id/mGuide1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/mIVMoviePoster"
-                android:layout_width="150dp"
-                android:layout_height="200dp"
+                android:id="@+id/mIVPlay"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:elevation="10dp"
+                android:src="@drawable/ic_play"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mToolbar" />
+
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/mToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@drawable/bg_toolbar"
+                android:elevation="0dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+
+            <ImageView
+                android:id="@+id/mIVMoviePosterOverlay"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha="0.4"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/ic_star" />
-
-            <ImageView
-                android:id="@+id/mIVFavorite"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_favorite_border"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/mTVMovieReleaseDate"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_bold"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/mIVMoviePoster"
-                tools:text="June 9 2018" />
-
-            <TextView
-                android:id="@+id/mTVMovieOverview"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/mTVMovieReleaseDate"
-                tools:text="Lorem ipmsum dolor " />
-
-
-            <fragment
-                android:id="@+id/mYoutubeFragment"
-                android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"
-                android:layout_width="match_parent"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/mTVMovieOverview"
-                android:layout_height="200dp" />
+                tools:src="@drawable/x" />
 
 
         </android.support.constraint.ConstraintLayout>
 
-        <ProgressBar
-            android:id="@+id/mPBMovieDetail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </android.support.constraint.ConstraintLayout>
+
+    </android.support.design.widget.AppBarLayout>
 
 
-</ScrollView>
+    <ImageView
+        android:id="@+id/mIVMoviePoster"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:elevation="11dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="@+id/mGuide9"
+        app:layout_constraintEnd_toStartOf="@+id/mGuide4"
+        app:layout_constraintStart_toStartOf="@+id/mGuide7"
+        app:layout_constraintTop_toTopOf="@+id/mGuide3"
+        tools:src="@drawable/x" />
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/mCLMovieDetail"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:elevation="5dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/mGuide6"
+        app:layout_constraintStart_toStartOf="@+id/mGuide5"
+        app:layout_constraintTop_toBottomOf="@+id/mGuide2">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/mGuide8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.42" />
+
+
+                <ImageView
+                    android:id="@+id/mIVFavorite"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/ic_favorite_border"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/mTVMovieTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/archivo_black"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toStartOf="@+id/mIVFavorite"
+                    app:layout_constraintStart_toStartOf="@+id/mGuide8"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="June 9 2018" />
+
+
+                <TextView
+                    android:id="@+id/mTVMovieReleaseDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/mGuide8"
+                    app:layout_constraintTop_toBottomOf="@+id/mTVMovieTitle"
+                    tools:text="June 9 2018" />
+
+                <RatingBar
+                    android:id="@+id/mRBMovieVotes"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:stepSize="0.1"
+                    app:layout_constraintStart_toStartOf="@+id/mTVMovieTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/mTVMovieReleaseDate"
+                    tools:rating="3.5" />
+
+                <TextView
+                    android:id="@+id/mTVRaiting"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:textSize="12sp"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/mRBMovieVotes"
+                    android:fontFamily="@font/archivo_black"
+                    android:textColor="@color/colorAccent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/mRBMovieVotes"
+                    app:layout_constraintTop_toTopOf="@+id/mRBMovieVotes"
+                    tools:text="3.1/5" />
+
+
+            </android.support.constraint.ConstraintLayout>
+
+
+        </ScrollView>
+
+    </android.support.v7.widget.CardView>
+
+    <ProgressBar
+        android:id="@+id/mPBMovieDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="11dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

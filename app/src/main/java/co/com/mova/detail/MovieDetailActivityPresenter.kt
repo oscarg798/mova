@@ -49,7 +49,7 @@ class MovieDetailActivityPresenter : IMovieDetailActivityPresenter {
                     .subscribe({ (movie, trailerKey) ->
                         mMovie = movie
                         mView?.showMovieTitle(movie.title)
-                        mView?.showMovieOverview(movie.overview)
+                        mView?.showMovieRaiting(movie.voteAverage * 10)
                         mView?.showMovieReleaseDate(movie.releaseDate)
                         mView?.changeFavoriteIcon(movie.favorite)
                         mView?.loadMoviePoster(movie.posterPath)

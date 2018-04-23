@@ -13,7 +13,7 @@ interface IMovieDetailActivityView : IBaseView {
 
     fun showMovieReleaseDate(date: String)
 
-    fun showMovieOverview(overView: String)
+    fun showMovieRaiting(votes: Float)
 
     fun changeFavoriteIcon(isFavorite: Boolean)
 

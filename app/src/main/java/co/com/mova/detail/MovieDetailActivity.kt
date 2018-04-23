@@ -24,7 +24,7 @@ class MovieDetailActivity : AppCompatActivity(), IMovieDetailActivityView {
 
     private var mYoutubePlayer: YouTubePlayer? = null
 
-    private val mSDF = SimpleDateFormat( "MMMM dd, yyyy", Locale.getDefault())
+    private val mSDF = SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault())
 
     private val mDateParser = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
@@ -40,35 +40,51 @@ class MovieDetailActivity : AppCompatActivity(), IMovieDetailActivityView {
         mPresenter = presenter
         lifecycle.addObserver(mPresenter)
         mPresenter.bind(this)
+
+        setSupportActionBar(mToolbar)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = ""
+
         mIVFavorite?.setOnClickListener {
             mPresenter.troggleFavorite()
         }
 
-        (mYoutubeFragment as? YouTubePlayerSupportFragment)?.initialize("AIzaSyAs3J7mLfJwcUy9d5fK8OcEeITFyonFWnU", object : YouTubePlayer.OnInitializedListener {
-            override fun onInitializationSuccess(p0: YouTubePlayer.Provider?, p1: YouTubePlayer?, p2: Boolean) {
-                mYoutubePlayer = p1
+//        (mYoutubeFragment as? YouTubePlayerSupportFragment)?.initialize("AIzaSyAs3J7mLfJwcUy9d5fK8OcEeITFyonFWnU", object : YouTubePlayer.OnInitializedListener {
+//            override fun onInitializationSuccess(p0: YouTubePlayer.Provider?, p1: YouTubePlayer?, p2: Boolean) {
+//                mYoutubePlayer = p1
+//
+//
+//            }
+//
+//            override fun onInitializationFailure(p0: YouTubePlayer.Provider?, p1: YouTubeInitializationResult?) {
+//
+//
+//            }
+//        })
+    }
 
+    override fun showMovieRaiting(votes: Float) {
+        val raiting = (5 * votes) / 100
+        mRBMovieVotes?.rating = raiting
+        mTVRaiting?.text ="$raiting/5"
 
-            }
+    }
 
-            override fun onInitializationFailure(p0: YouTubePlayer.Provider?, p1: YouTubeInitializationResult?) {
-
-
-            }
-        })
+    override fun showMovieTitle(title: String) {
+        mTVMovieTitle?.text = title
     }
 
     override fun showProgressBar() {
         mCLMovieDetail?.visibility = View.GONE
+        mIVPlay?.visibility = View.GONE
         mPBMovieDetail?.visibility = View.VISIBLE
-    }
 
-    override fun showMovieTitle(title: String) {
-        supportActionBar?.title = title
     }
 
     override fun hideProgressBar() {
         mCLMovieDetail?.visibility = View.VISIBLE
+        mIVPlay?.visibility = View.VISIBLE
         mPBMovieDetail?.visibility = View.GONE
     }
 
@@ -79,9 +95,6 @@ class MovieDetailActivity : AppCompatActivity(), IMovieDetailActivityView {
     override fun navigate(destination: Class<*>, arguments: Bundle?) {
     }
 
-    override fun showMovieOverview(overView: String) {
-        mTVMovieOverview?.text = overView
-    }
 
     override fun changeFavoriteIcon(isFavorite: Boolean) {
         val id = if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_favorite_border
@@ -97,7 +110,10 @@ class MovieDetailActivity : AppCompatActivity(), IMovieDetailActivityView {
     }
 
     override fun loadMoviePoster(poster: String) {
+
         Picasso.get().load(IMAGE_URL + poster)
                 .into(mIVMoviePoster)
+        Picasso.get().load(IMAGE_URL + poster)
+                .into(mIVMoviePosterOverlay)
     }
 }

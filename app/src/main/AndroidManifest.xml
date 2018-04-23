@@ -33,7 +33,8 @@
             android:value="AlOtOfNumBersAndLetters123" />
 
 
-        <activity android:name=".detail.MovieDetailActivity" />
+        <activity android:name=".detail.MovieDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

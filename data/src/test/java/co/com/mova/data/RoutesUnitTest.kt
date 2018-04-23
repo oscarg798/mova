@@ -1,11 +1,16 @@
 package co.com.mova.data
 
+import android.content.Context
+import android.test.mock.MockContext
 import it.cosenonjaviste.daggermock.DaggerMock
 import it.cosenonjaviste.daggermock.InjectFromComponent
 import co.com.mova.data.di.DataComponent
+import co.com.mova.data.di.DatabaseModule
 import co.com.mova.data.di.NetworkModule
 import co.com.mova.data.di.RoutesModule
 import co.com.mova.data.network.responses.GetGenreResponse
+import co.com.mova.data.network.responses.GetMovieCreditsResponse
+import co.com.mova.data.network.responses.GetMovieReviewsResponse
 import co.com.mova.data.network.responses.GetPopularMoviesResponse
 import co.com.mova.data.network.routes.IGenreRoute
 import co.com.mova.data.network.routes.IMovieRoute
@@ -20,10 +25,10 @@ import retrofit2.Retrofit
  *
  * @see [Testing documentation](http://d.android.com/tools/testing)
  */
-class ExampleUnitTest {
+class RoutesUnitTest {
 
     @get:Rule
-    val rule = DaggerMock.rule<DataComponent>(NetworkModule(), RoutesModule())
+    val rule = DaggerMock.rule<DataComponent>(NetworkModule(), DatabaseModule(MockContext()), RoutesModule())
 
 
     @InjectFromComponent
@@ -49,6 +54,24 @@ class ExampleUnitTest {
     fun shouldGetMoviesWithoutErrors() {
         val subs = TestObserver<GetPopularMoviesResponse>()
         mMovieRoute.getPopularMovies(1).subscribeWith(subs)
+        subs.assertNoErrors()
+                .assertValueCount(1)
+                .assertComplete()
+    }
+
+    @Test
+    fun shouldGetMovieCreditsWithoutErrors() {
+        val subs = TestObserver<GetMovieCreditsResponse>()
+        mMovieRoute.getMovieCredits(157336).subscribeWith(subs)
+        subs.assertNoErrors()
+                .assertValueCount(1)
+                .assertComplete()
+    }
+
+    @Test
+    fun shouldGetMovieReviewsWithoutErrors() {
+        val subs = TestObserver<GetMovieReviewsResponse>()
+        mMovieRoute.getMovieReview(157336).subscribeWith(subs)
         subs.assertNoErrors()
                 .assertValueCount(1)
                 .assertComplete()

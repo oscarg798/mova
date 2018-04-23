@@ -1,6 +1,8 @@
 package co.com.mova.data.network.routes
 
 import co.com.mova.data.API_KEY
+import co.com.mova.data.network.responses.GetMovieCreditsResponse
+import co.com.mova.data.network.responses.GetMovieReviewsResponse
 import co.com.mova.data.network.responses.GetMovieVideoResponse
 import co.com.mova.data.network.responses.GetPopularMoviesResponse
 import io.reactivex.Observable
@@ -20,4 +22,12 @@ interface IMovieRoute {
     @GET("movie/{id}/videos")
     fun getMovieVideos(@Path("id") id: Int,
                        @Query("api_key") key: String = API_KEY): Observable<GetMovieVideoResponse>
+
+    @GET("movie/{movie_id}/credits")
+    fun getMovieCredits(@Path("movie_id") movie_id: Int,
+                        @Query("api_key") key: String = API_KEY): Observable<GetMovieCreditsResponse>
+
+    @GET("movie/{movie_id}/reviews")
+    fun getMovieReview(@Path("movie_id") movie_id: Int,
+                       @Query("api_key") key: String = API_KEY):Observable<GetMovieReviewsResponse>
 }

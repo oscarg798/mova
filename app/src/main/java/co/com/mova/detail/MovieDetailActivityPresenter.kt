@@ -48,6 +48,7 @@ class MovieDetailActivityPresenter : IMovieDetailActivityPresenter {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ (movie, trailerKey) ->
                         mMovie = movie
+                        mView?.setUpViewPager(movie)
                         mView?.showMovieTitle(movie.title)
                         mView?.showMovieRaiting(movie.voteAverage * 10)
                         mView?.showMovieReleaseDate(movie.releaseDate)

@@ -1,17 +1,16 @@
 package co.com.mova.detail
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
+import android.support.v7.app.AppCompatActivity
 import android.view.View
 import co.com.mova.BaseApplication
 import co.com.mova.R
+import co.com.mova.core.entities.Movie
 import co.com.mova.data.IMAGE_URL
 import co.com.mova.data.MOVIE_ID
-import co.com.mova.data.YOUTUBE_BASE_URL
-import com.google.android.youtube.player.YouTubeInitializationResult
+import co.com.mova.detail.info.MovieInfoFragment
 import com.google.android.youtube.player.YouTubePlayer
-import com.google.android.youtube.player.YouTubePlayerSupportFragment
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 import java.text.SimpleDateFormat
@@ -50,6 +49,7 @@ class MovieDetailActivity : AppCompatActivity(), IMovieDetailActivityView {
             mPresenter.troggleFavorite()
         }
 
+
 //        (mYoutubeFragment as? YouTubePlayerSupportFragment)?.initialize("AIzaSyAs3J7mLfJwcUy9d5fK8OcEeITFyonFWnU", object : YouTubePlayer.OnInitializedListener {
 //            override fun onInitializationSuccess(p0: YouTubePlayer.Provider?, p1: YouTubePlayer?, p2: Boolean) {
 //                mYoutubePlayer = p1
@@ -64,10 +64,20 @@ class MovieDetailActivity : AppCompatActivity(), IMovieDetailActivityView {
 //        })
     }
 
+    override fun setUpViewPager(movie: Movie) {
+        mVPMovies?.adapter = ViewPagerAdapter(supportFragmentManager,
+                arrayListOf(MovieInfoFragment.newInstance(movie),
+                        MovieInfoFragment.newInstance(movie)),
+                arrayListOf("Info", "Review"))
+
+        mTLMovieDetail?.setupWithViewPager(mVPMovies)
+
+    }
+
     override fun showMovieRaiting(votes: Float) {
         val raiting = (5 * votes) / 100
         mRBMovieVotes?.rating = raiting
-        mTVRaiting?.text ="$raiting/5"
+        mTVRaiting?.text = "$raiting/5"
 
     }
 
@@ -76,14 +86,27 @@ class MovieDetailActivity : AppCompatActivity(), IMovieDetailActivityView {
     }
 
     override fun showProgressBar() {
-        mCLMovieDetail?.visibility = View.GONE
+        mTVMovieTitle?.visibility = View.GONE
+        mTVRaiting?.visibility = View.GONE
+        mTVMovieReleaseDate?.visibility = View.GONE
+        mRBMovieVotes?.visibility = View.GONE
+        mIVMoviePoster?.visibility = View.GONE
+        mTLMovieDetail?.visibility = View.GONE
+        mVPMovies?.visibility = View.GONE
         mIVPlay?.visibility = View.GONE
         mPBMovieDetail?.visibility = View.VISIBLE
 
     }
 
     override fun hideProgressBar() {
-        mCLMovieDetail?.visibility = View.VISIBLE
+        mTVMovieTitle?.visibility = View.VISIBLE
+        mTVRaiting?.visibility = View.VISIBLE
+        mTVMovieReleaseDate?.visibility = View.VISIBLE
+        mRBMovieVotes?.visibility = View.VISIBLE
+        mIVMoviePoster?.visibility = View.VISIBLE
+        mTLMovieDetail?.visibility = View.VISIBLE
+        mVPMovies?.visibility = View.VISIBLE
+        mIVPlay?.visibility = View.VISIBLE
         mIVPlay?.visibility = View.VISIBLE
         mPBMovieDetail?.visibility = View.GONE
     }

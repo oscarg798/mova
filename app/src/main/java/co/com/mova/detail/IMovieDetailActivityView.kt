@@ -1,5 +1,6 @@
 package co.com.mova.detail
 
+import co.com.mova.core.entities.Movie
 import co.com.post.IBaseView
 
 /**
@@ -20,6 +21,8 @@ interface IMovieDetailActivityView : IBaseView {
     fun getMovieId(): Int
 
     fun showMovieTrailer(key: String)
+
+    fun setUpViewPager(movie:Movie)
 
 
 }

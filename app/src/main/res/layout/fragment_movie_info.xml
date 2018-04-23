@@ -1,0 +1,35 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:padding="8dp"
+    android:layout_height="match_parent"
+    tools:context="co.com.mova.detail.info.MovieInfoFragment">
+
+
+    <TextView
+        android:id="@+id/mTVGenres"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/archivo_black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Action | Adventure" />
+
+    <TextView
+        android:id="@+id/mTVMovieOverview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+
+        android:scrollbars="vertical"
+        android:fontFamily="@font/roboto"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mTVGenres"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="This is a long text should be long" />
+
+
+
+</android.support.constraint.ConstraintLayout>

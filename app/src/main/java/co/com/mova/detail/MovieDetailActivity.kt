@@ -9,7 +9,6 @@ import android.support.animation.SpringForce
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.MotionEvent
-import android.view.ScaleGestureDetector
 import android.view.View
 import co.com.mova.BaseApplication
 import co.com.mova.R
@@ -43,9 +42,6 @@ class MovieDetailActivity : AppCompatActivity(), IMovieDetailActivityView {
 
     private var mMovementSpringAnimation: SpringAnimation? = null
 
-    private var mScaleSpringAnimation: SpringAnimation? = null
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,13 +65,6 @@ class MovieDetailActivity : AppCompatActivity(), IMovieDetailActivityView {
             mPresenter.troggleFavorite()
         }
 
-        mAppbar?.viewTreeObserver?.addOnGlobalLayoutListener {
-            mScaleSpringAnimation = SpringAnimation(mAppbar, SpringAnimation.SCALE_Y)
-            val force = SpringForce(1f)
-            force.stiffness = SpringForce.STIFFNESS_MEDIUM
-            force.dampingRatio = SpringForce.DAMPING_RATIO_LOW_BOUNCY
-            mScaleSpringAnimation?.spring = force
-        }
 
         mIVMoviePoster?.viewTreeObserver?.addOnGlobalLayoutListener {
 
@@ -98,12 +87,10 @@ class MovieDetailActivity : AppCompatActivity(), IMovieDetailActivityView {
                 MotionEvent.ACTION_DOWN -> {
                     mMoveViewDY = v.y - e.rawY
                     mMovementSpringAnimation?.cancel()
-                    mScaleSpringAnimation?.cancel()
 
 
                 }
                 MotionEvent.ACTION_UP -> {
-                    mScaleSpringAnimation?.cancel()
                     mMovementSpringAnimation?.start()
                 }
 
@@ -111,7 +98,6 @@ class MovieDetailActivity : AppCompatActivity(), IMovieDetailActivityView {
                     v.animate().y(e.rawY + mMoveViewDY)
                             .setDuration(0)
                             .start()
-                    mAppbar?.animate()?.scaleY( mMoveViewDY)?.setDuration(0)?.start()
 
                 }
             }
@@ -121,22 +107,27 @@ class MovieDetailActivity : AppCompatActivity(), IMovieDetailActivityView {
         }
 
         mIVPlay?.setOnClickListener {
-            val key = mPresenter.getMovieTrailerKey()
-            key?.let {
-                val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:$it"))
-                val webIntent = Intent(Intent.ACTION_VIEW,
-                        Uri.parse("http://www.youtube.com/watch?v=$it"))
-                try {
-                    startActivity(appIntent)
-                } catch (ex: ActivityNotFoundException) {
-                    startActivity(webIntent)
-                }
-            }
-
-
+           playTrailer()
         }
 
+        mIVMoviePosterOverlay?.setOnClickListener{
+            playTrailer()
+        }
 
+    }
+
+    private fun playTrailer(){
+        val key = mPresenter.getMovieTrailerKey()
+        key?.let {
+            val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:$it"))
+            val webIntent = Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://www.youtube.com/watch?v=$it"))
+            try {
+                startActivity(appIntent)
+            } catch (ex: ActivityNotFoundException) {
+                startActivity(webIntent)
+            }
+        }
     }
 
     override fun setUpViewPager(movie: Movie) {

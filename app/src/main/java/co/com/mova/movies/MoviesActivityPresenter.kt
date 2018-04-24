@@ -47,11 +47,13 @@ class MoviesActivityPresenter : IMoviesActivityPresenter {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume() {
-        if (!mIsShowingFavorites) {
+
+        val hastToRefresh = mView?.getMoviesInAdapter()?.size ?: 0 == 0
+        if (!mIsShowingFavorites &&  hastToRefresh) {
             mActualPage = 1
             mView?.clear()
             getMovies()
-        } else {
+        } else if(hastToRefresh) {
             getFavoritesMovies()
         }
 

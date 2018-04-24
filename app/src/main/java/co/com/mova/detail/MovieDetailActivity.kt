@@ -1,11 +1,15 @@
 package co.com.mova.detail
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.animation.SpringAnimation
 import android.support.animation.SpringForce
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.MotionEvent
+import android.view.ScaleGestureDetector
 import android.view.View
 import co.com.mova.BaseApplication
 import co.com.mova.R
@@ -20,22 +24,28 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 import java.text.SimpleDateFormat
 import java.util.*
-import android.support.v4.content.ContextCompat.startActivity
-import android.content.ActivityNotFoundException
-import android.content.Intent
-import android.net.Uri
 
 
 class MovieDetailActivity : AppCompatActivity(), IMovieDetailActivityView {
 
 
-    lateinit var mPresenter: IMovieDetailActivityPresenter
+    private lateinit var mPresenter: IMovieDetailActivityPresenter
 
     private var mYoutubePlayer: YouTubePlayer? = null
 
     private val mSDF = SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault())
 
     private val mDateParser = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
+    private var mMoviePosterInitPos = -1f
+
+    private var mMoveViewDY = 0f
+
+    private var mMovementSpringAnimation: SpringAnimation? = null
+
+    private var mScaleSpringAnimation: SpringAnimation? = null
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,37 +69,54 @@ class MovieDetailActivity : AppCompatActivity(), IMovieDetailActivityView {
             mPresenter.troggleFavorite()
         }
 
-        mIVMoviePoster?.viewTreeObserver?.addOnGlobalLayoutListener {
-
-            val animation = SpringAnimation(mIVMoviePoster, SpringAnimation.Y)
-            val force = SpringForce(mIVMoviePoster.y)
+        mAppbar?.viewTreeObserver?.addOnGlobalLayoutListener {
+            mScaleSpringAnimation = SpringAnimation(mAppbar, SpringAnimation.SCALE_Y)
+            val force = SpringForce(1f)
             force.stiffness = SpringForce.STIFFNESS_MEDIUM
             force.dampingRatio = SpringForce.DAMPING_RATIO_LOW_BOUNCY
-            animation.spring = force
+            mScaleSpringAnimation?.spring = force
+        }
 
-            var dy = 0f
+        mIVMoviePoster?.viewTreeObserver?.addOnGlobalLayoutListener {
 
-            mIVMoviePoster?.setOnTouchListener { v, e ->
-
-                when (e.actionMasked) {
-                    MotionEvent.ACTION_DOWN -> {
-                        dy = v.y - e.rawY
-                        animation.skipToEnd()
-                    }
-                    MotionEvent.ACTION_UP -> {
-                        animation.start()
-                    }
-                    MotionEvent.ACTION_MOVE -> {
-                        v.animate().y(e.rawY + dy)
-                                .setDuration(0)
-                                .start()
-                    }
-                }
-
-                true
+            if (mMoviePosterInitPos == -1f) {
+                mMoviePosterInitPos = mIVMoviePoster?.y ?: -1f
 
             }
+            mMovementSpringAnimation = SpringAnimation(mIVMoviePoster, SpringAnimation.Y)
+            val force = SpringForce(mMoviePosterInitPos)
+            force.stiffness = SpringForce.STIFFNESS_MEDIUM
+            force.dampingRatio = SpringForce.DAMPING_RATIO_LOW_BOUNCY
+            mMovementSpringAnimation?.spring = force
 
+
+        }
+
+        mIVMoviePoster?.setOnTouchListener { v, e ->
+
+            when (e.actionMasked) {
+                MotionEvent.ACTION_DOWN -> {
+                    mMoveViewDY = v.y - e.rawY
+                    mMovementSpringAnimation?.cancel()
+                    mScaleSpringAnimation?.cancel()
+
+
+                }
+                MotionEvent.ACTION_UP -> {
+                    mScaleSpringAnimation?.cancel()
+                    mMovementSpringAnimation?.start()
+                }
+
+                MotionEvent.ACTION_MOVE -> {
+                    v.animate().y(e.rawY + mMoveViewDY)
+                            .setDuration(0)
+                            .start()
+                    mAppbar?.animate()?.scaleY( mMoveViewDY)?.setDuration(0)?.start()
+
+                }
+            }
+
+            true
 
         }
 
@@ -110,18 +137,6 @@ class MovieDetailActivity : AppCompatActivity(), IMovieDetailActivityView {
         }
 
 
-//        (mYoutubeFragment as? YouTubePlayerSupportFragment)?.initialize("AIzaSyAs3J7mLfJwcUy9d5fK8OcEeITFyonFWnU", object : YouTubePlayer.OnInitializedListener {
-//            override fun onInitializationSuccess(p0: YouTubePlayer.Provider?, p1: YouTubePlayer?, p2: Boolean) {
-//                mYoutubePlayer = p1
-//
-//
-//            }
-//
-//            override fun onInitializationFailure(p0: YouTubePlayer.Provider?, p1: YouTubeInitializationResult?) {
-//
-//
-//            }
-//        })
     }
 
     override fun setUpViewPager(movie: Movie) {
@@ -151,7 +166,6 @@ class MovieDetailActivity : AppCompatActivity(), IMovieDetailActivityView {
         mTVRaiting?.visibility = View.GONE
         mTVMovieReleaseDate?.visibility = View.GONE
         mRBMovieVotes?.visibility = View.GONE
-        mIVMoviePoster?.visibility = View.GONE
         mTLMovieDetail?.visibility = View.GONE
         mVPMovies?.visibility = View.GONE
         mIVPlay?.visibility = View.GONE
@@ -164,7 +178,6 @@ class MovieDetailActivity : AppCompatActivity(), IMovieDetailActivityView {
         mTVRaiting?.visibility = View.VISIBLE
         mTVMovieReleaseDate?.visibility = View.VISIBLE
         mRBMovieVotes?.visibility = View.VISIBLE
-        mIVMoviePoster?.visibility = View.VISIBLE
         mTLMovieDetail?.visibility = View.VISIBLE
         mVPMovies?.visibility = View.VISIBLE
         mIVPlay?.visibility = View.VISIBLE
@@ -176,7 +189,7 @@ class MovieDetailActivity : AppCompatActivity(), IMovieDetailActivityView {
         mTVMovieReleaseDate?.text = "${mSDF.format(mDateParser.parse(date))}"
     }
 
-    override fun navigate(destination: Class<*>, arguments: Bundle?) {
+    override fun navigate(destination: Class<*>, arguments: Bundle?, options: Pair<View, String>?) {
     }
 
 

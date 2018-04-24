@@ -152,6 +152,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:elevation="7dp"
+        android:transitionName="poster"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="@+id/mGuide8"
         app:layout_constraintEnd_toStartOf="@+id/mGuide6"

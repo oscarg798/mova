@@ -2,7 +2,6 @@ package co.com.mova.movies
 
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
-import android.graphics.drawable.ShapeDrawable
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.PopupMenu
 import android.support.v7.widget.RecyclerView
@@ -49,7 +48,7 @@ class MoviesAdapter(private val mMovies: ArrayList<Movie> = ArrayList(),
 
         holder.itemView?.setOnClickListener {
             if (it.id != R.id.mIVOptions) {
-                mMoviesCallback.onClick(mMovies[holder.adapterPosition])
+                mMoviesCallback.onClick(mMovies[holder.adapterPosition],holder.mIVMoviePoster )
             }
 
         }

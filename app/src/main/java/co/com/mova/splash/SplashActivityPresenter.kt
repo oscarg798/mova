@@ -25,12 +25,13 @@ class SplashActivityPresenter : ISplashActivityPresenter {
     fun getGenres() {
         val disposable = object : DisposableSingleObserver<List<Genre>>() {
             override fun onSuccess(t: List<Genre>) {
-                mView?.navigate(MoviesActivity::class.java, null)
+                mView?.navigate(MoviesActivity::class.java, null, null)
                 mDisposableBag.remove(this)
             }
 
             override fun onError(e: Throwable) {
                 e.printStackTrace()
+                mView?.showMessage("Please verify your internet connection and  try again")
                 mDisposableBag.remove(this)
             }
         }

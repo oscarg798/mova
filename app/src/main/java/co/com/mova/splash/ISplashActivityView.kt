@@ -8,5 +8,6 @@ import co.com.post.IBaseView
 interface ISplashActivityView:IBaseView{
 
 
+    fun showMessage(message:String)
 
 }

@@ -60,7 +60,7 @@ class MovieInfoFragment : Fragment(),IMovieInfoFragmentView {
     }
 
 
-    override fun navigate(destination: Class<*>, arguments: Bundle?) {
+    override fun navigate(destination: Class<*>, arguments: Bundle?, options:Pair<View,String>?) {
     }
 
 

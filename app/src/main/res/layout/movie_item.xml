@@ -133,6 +133,7 @@
         android:layout_height="110dp"
         android:elevation="5dp"
         android:scaleType="centerCrop"
+        android:transitionName="poster"
         app:layout_constraintEnd_toStartOf="@+id/mGuide1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

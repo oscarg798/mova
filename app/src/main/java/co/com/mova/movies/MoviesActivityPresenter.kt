@@ -4,11 +4,11 @@ import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.OnLifecycleEvent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import co.com.mova.core.entities.Movie
 import co.com.mova.core.use_cases.base.ISingleUseCase
 import co.com.mova.data.MOVIE_ID
 import co.com.mova.detail.MovieDetailActivity
-import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -109,10 +109,10 @@ class MoviesActivityPresenter : IMoviesActivityPresenter {
         }
     }
 
-    override fun onClick(movie: Movie) {
+    override fun onClick(movie: Movie, posterView: View) {
         val bundle = Bundle()
         bundle.putInt(MOVIE_ID, movie.id)
-        mView?.navigate(MovieDetailActivity::class.java, bundle)
+        mView?.navigate(MovieDetailActivity::class.java, bundle, Pair(posterView, "poster"))
 
     }
 

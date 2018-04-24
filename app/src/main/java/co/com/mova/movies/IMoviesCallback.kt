@@ -1,5 +1,6 @@
 package co.com.mova.movies
 
+import android.view.View
 import co.com.mova.core.entities.Movie
 
 /**
@@ -7,5 +8,5 @@ import co.com.mova.core.entities.Movie
  */
 interface IMoviesCallback{
 
-    fun onClick(movie: Movie)
+    fun onClick(movie: Movie, posterView: View)
 }

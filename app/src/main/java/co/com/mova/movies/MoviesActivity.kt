@@ -3,12 +3,14 @@ package co.com.mova.movies
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.view.MenuItemCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.EditText
 import co.com.mova.BaseApplication
 import co.com.mova.EndLessScrollListener
@@ -84,12 +86,23 @@ class MoviesActivity : AppCompatActivity(), IMoviesActivityView {
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun navigate(destination: Class<*>, arguments: Bundle?) {
+    override fun navigate(destination: Class<*>, arguments: Bundle?, options: Pair<View, String>?) {
         val intent = Intent(this, destination)
         arguments?.let {
             intent.putExtras(arguments)
         }
-        startActivity(intent)
+
+        if(options!==null) {
+
+            startActivity(intent, ActivityOptionsCompat.
+                    makeSceneTransitionAnimation(this,
+                            android.support.v4.util.Pair(options.first, options.second)).toBundle())
+        }
+        else{
+            startActivity(intent)
+
+        }
+
     }
 
     override fun clear() {

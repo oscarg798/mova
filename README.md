@@ -48,6 +48,7 @@ Dentro de este modulo encontramos 6 subpaquetes los cuales son
 **DATA**
 Este modulo es el modulo de acceso a datos de la aplicación, este modulo se compone de repositorios locales y remotos,
 este modulo es el que conoce como obtener la información necesaria para que la aplicación funcione adecuadamente.
+Este modulo contiene algunas pruebas de intrumentación y unitarias
 
 Dentro de este modulo encontramos 6 subpaquetes los cuales son
 

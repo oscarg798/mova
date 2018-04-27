@@ -8,4 +8,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="accept_label">Accept</string>
     <string name="reference">Design inspired from Cinema Club Festival \n by Yaroslav Zubko</string>
+    <string name="popular_label">Popular</string>
+    <string name="top_rated_label">Top Rated</string>
+    <string name="upcoming_label">Upcoming</string>
 </resources>

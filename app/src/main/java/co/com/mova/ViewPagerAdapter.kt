@@ -1,4 +1,4 @@
-package co.com.mova.detail
+package co.com.mova
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
@@ -21,6 +21,11 @@ class ViewPagerAdapter(fragmentManager: FragmentManager,
 
     override fun getPageTitle(position: Int): CharSequence? {
         return mTitles[position]
+    }
+
+    fun getFragmentAtPosition(position: Int):Fragment? {
+        if(position< mFragments.size) return mFragments[position]
+        return null
     }
 
 

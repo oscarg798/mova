@@ -29,7 +29,7 @@ interface IUseCaseFactory {
 
     fun getMoviesUseCase(subscribeScheduler: Scheduler,
                          observerScheduler: Scheduler):
-            SingleUseCase<Pair<Boolean, List<Movie>>, Int>
+            SingleUseCase<Pair<Boolean, List<Movie>>, Pair<Int, Int>>
 
     fun getMovieUseCase(subscribeScheduler: Scheduler,
                         observerScheduler: Scheduler):

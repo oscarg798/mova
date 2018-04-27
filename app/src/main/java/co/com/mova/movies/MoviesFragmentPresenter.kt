@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import co.com.mova.core.entities.Movie
 import co.com.mova.core.use_cases.base.ISingleUseCase
+import co.com.mova.data.CATEGORY_TYPE
 import co.com.mova.data.MOVIE_ID
 import co.com.mova.detail.MovieDetailActivity
 import io.reactivex.Single
@@ -20,9 +21,9 @@ import javax.inject.Inject
 /**
  * Created by oscarg798 on 4/7/18
  */
-class MoviesActivityPresenter : IMoviesActivityPresenter {
+class MoviesFragmentPresenter : IMoviesFragmentPresenter {
 
-    override var mView: IMoviesActivityView? = null
+    override var mView: IMoviesFragmentView? = null
 
     private var mActualPage = 1
 
@@ -35,7 +36,7 @@ class MoviesActivityPresenter : IMoviesActivityPresenter {
     private var mIsShowingFavorites = false
 
     @Inject
-    lateinit var mGetMoviesUseCase: ISingleUseCase<Pair<Boolean, List<Movie>>, Int>
+    lateinit var mGetMoviesUseCase: ISingleUseCase<Pair<Boolean, List<Movie>>, Pair<Int, Int>>
 
     @Inject
     lateinit var mGetFavoriteMoviesUseCase: ISingleUseCase<List<Movie>, Any?>
@@ -44,16 +45,18 @@ class MoviesActivityPresenter : IMoviesActivityPresenter {
 
     private var mIsSearching = false
 
+    private var mActualDisplayType = 1
+
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume() {
-
+        mActualDisplayType = mView?.getArguments()?.getInt(CATEGORY_TYPE) ?: 1
         val hastToRefresh = mView?.getMoviesInAdapter()?.size ?: 0 == 0
-        if (!mIsShowingFavorites &&  hastToRefresh) {
+        if (!mIsShowingFavorites && hastToRefresh) {
             mActualPage = 1
             mView?.clear()
             getMovies()
-        } else if(hastToRefresh) {
+        } else if (hastToRefresh) {
             getFavoritesMovies()
         }
 
@@ -82,7 +85,7 @@ class MoviesActivityPresenter : IMoviesActivityPresenter {
                 }
             }
             mDisposableBag.add(disposable)
-            mGetMoviesUseCase.execute(mActualPage, disposable)
+            mGetMoviesUseCase.execute(Pair(mActualPage, mActualDisplayType), disposable)
         }
 
 

@@ -66,4 +66,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     compile project(':core')
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
+    implementation 'com.getbase:floatingactionbutton:1.10.1'
+
 }

@@ -10,6 +10,7 @@ import co.com.mova.data.network.entities.APIMovie
 import co.com.mova.data.network.entities.APIMovieCast
 import co.com.mova.data.network.entities.APIMovieReview
 import co.com.mova.data.network.entities.ApiMovieVideo
+import co.com.mova.data.network.responses.GetMoviesResponse
 import co.com.mova.data.network.routes.IMovieRoute
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -27,15 +28,27 @@ class MovieRepository : IMovieRepository {
     lateinit var mMovieDAO: MovieDAO
 
     @Inject
-    lateinit var mMovieReviewDAO:MovieReviewDAO
+    lateinit var mMovieReviewDAO: MovieReviewDAO
 
     @Inject
     lateinit var mMovieCastDAO: MovieCastDAO
 
-    override fun getMoviesFromAPI(page: Int): Observable<Pair<Boolean, List<APIMovie>>> {
-        return mMovieRoute.getPopularMovies(page).map {
+    override fun getMoviesFromAPI(page: Int, type: Int): Observable<Pair<Boolean, List<APIMovie>>> {
+
+        return when (type) {
+            1 -> mMovieRoute.getPopularMovies(page)
+            2 -> mMovieRoute.getTopRatedMovies(page)
+            else -> mMovieRoute.getUpcomingMovies(page)
+        }.doOnError {
+            val movies = mMovieDAO.getAll().map {
+                APIMovie(it.id, it.voteCount, it.voteAverage,
+                        it.title, it.popularity, it.posterPath, it.genreIds, it.overview, it.releaseDate)
+            }
+            GetMoviesResponse(page, movies.size, page, movies)
+        }.map {
             Pair(it.totalPages > page, it.results)
         }
+
     }
 
     override fun getMovie(id: Int): DBMovie? {
@@ -69,9 +82,9 @@ class MovieRepository : IMovieRepository {
     }
 
     override fun getMovieCastFromAPI(movieId: Int): Observable<List<APIMovieCast>> {
-         return mMovieRoute.getMovieCredits(movieId).map {
-             it.cast
-         }
+        return mMovieRoute.getMovieCredits(movieId).map {
+            it.cast
+        }
     }
 
     override fun getMovieCastFromDB(): List<DBMovieCast> {

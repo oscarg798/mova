@@ -1,6 +1,5 @@
 package co.com.mova.data
 
-import android.content.Context
 import android.test.mock.MockContext
 import it.cosenonjaviste.daggermock.DaggerMock
 import it.cosenonjaviste.daggermock.InjectFromComponent
@@ -11,7 +10,7 @@ import co.com.mova.data.di.RoutesModule
 import co.com.mova.data.network.responses.GetGenreResponse
 import co.com.mova.data.network.responses.GetMovieCreditsResponse
 import co.com.mova.data.network.responses.GetMovieReviewsResponse
-import co.com.mova.data.network.responses.GetPopularMoviesResponse
+import co.com.mova.data.network.responses.GetMoviesResponse
 import co.com.mova.data.network.routes.IGenreRoute
 import co.com.mova.data.network.routes.IMovieRoute
 import io.reactivex.observers.TestObserver
@@ -52,7 +51,7 @@ class RoutesUnitTest {
 
     @Test
     fun shouldGetMoviesWithoutErrors() {
-        val subs = TestObserver<GetPopularMoviesResponse>()
+        val subs = TestObserver<GetMoviesResponse>()
         mMovieRoute.getPopularMovies(1).subscribeWith(subs)
         subs.assertNoErrors()
                 .assertValueCount(1)

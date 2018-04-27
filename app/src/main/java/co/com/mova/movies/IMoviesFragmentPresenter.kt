@@ -8,7 +8,7 @@ import co.com.post.IBasePresenter
 /**
  * Created by oscarg798 on 4/7/18.
  */
-interface IMoviesActivityPresenter : IBasePresenter<IMoviesActivityView>, IMoviesScrollListener,
+interface IMoviesFragmentPresenter : IBasePresenter<IMoviesFragmentView>, IMoviesScrollListener,
         SwipeRefreshLayout.OnRefreshListener, IMoviesCallback,
         SearchView.OnQueryTextListener,
         MenuItemCompat.OnActionExpandListener {

@@ -53,7 +53,7 @@ class UseCaseFactory(mContext: Context) : IUseCaseFactory {
 
     override fun getMoviesUseCase(subscribeScheduler: Scheduler,
                                   observerScheduler: Scheduler):
-            SingleUseCase<Pair<Boolean, List<Movie>>, Int> {
+            SingleUseCase<Pair<Boolean, List<Movie>>, Pair<Int, Int>> {
         val useCase = GetMoviesUseCase(subscribeScheduler, observerScheduler)
         mRepositoryComponent?.inject(useCase)
         return useCase

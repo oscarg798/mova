@@ -12,6 +12,7 @@ import android.view.MotionEvent
 import android.view.View
 import co.com.mova.BaseApplication
 import co.com.mova.R
+import co.com.mova.ViewPagerAdapter
 import co.com.mova.core.entities.Movie
 import co.com.mova.data.IMAGE_URL
 import co.com.mova.data.MOVIE_ID
@@ -108,10 +109,6 @@ class MovieDetailActivity : AppCompatActivity(), IMovieDetailActivityView {
 
         mIVPlay?.setOnClickListener {
            playTrailer()
-        }
-
-        mIVMoviePosterOverlay?.setOnClickListener{
-            playTrailer()
         }
 
     }

@@ -1,11 +1,10 @@
 package co.com.mova.di
 
-import co.com.mova.detail.IMovieDetailActivityPresenter
 import co.com.mova.detail.MovieDetailActivityPresenter
 import co.com.mova.detail.cast.CastFragmentPresenter
 import co.com.mova.detail.info.MovieInfoFragmentPresenter
 import co.com.mova.detail.review.ReviewFragmentPresenter
-import co.com.mova.movies.MoviesActivityPresenter
+import co.com.mova.movies.MoviesFragmentPresenter
 import co.com.mova.splash.SplashActivityPresenter
 import dagger.Component
 import javax.inject.Singleton
@@ -19,7 +18,7 @@ interface AppComponent {
 
     fun inject(splashActivityPresenter: SplashActivityPresenter)
 
-    fun inject(moviesActivityPresenter: MoviesActivityPresenter)
+    fun inject(moviesFragmentPresenter: MoviesFragmentPresenter)
 
     fun inject(moviesDetailActivityPresenter: MovieDetailActivityPresenter)
 

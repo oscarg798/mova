@@ -50,7 +50,7 @@ class UseCaseModule {
     @Provides
     @Singleton
     fun providesMoviesUseCase(useCaseFactory: IUseCaseFactory):
-            ISingleUseCase<Pair<Boolean, List<Movie>>, Int> {
+            ISingleUseCase<Pair<Boolean, List<Movie>>, Pair<Int, Int>> {
         return useCaseFactory.getMoviesUseCase(Schedulers.io(), AndroidSchedulers.mainThread())
     }
 
@@ -65,7 +65,7 @@ class UseCaseModule {
     @Provides
     @Singleton
     fun providesMakeMovieFavoriteUseCase(useCaseFactory: IUseCaseFactory):
-            ICompletableUseCase<Pair<Int,Boolean>> {
+            ICompletableUseCase<Pair<Int, Boolean>> {
         return useCaseFactory.getMakeMovieFavoriteUseCase(Schedulers.io(), AndroidSchedulers.mainThread())
     }
 
@@ -78,13 +78,13 @@ class UseCaseModule {
 
     @Provides
     @Singleton
-    fun providesGetMovieCastUseCase(useCaseFactory: IUseCaseFactory):ISingleUseCase<List<MovieCast>,Int>{
-        return useCaseFactory.getMovieCastUseCase(Schedulers.io(),AndroidSchedulers.mainThread())
+    fun providesGetMovieCastUseCase(useCaseFactory: IUseCaseFactory): ISingleUseCase<List<MovieCast>, Int> {
+        return useCaseFactory.getMovieCastUseCase(Schedulers.io(), AndroidSchedulers.mainThread())
     }
 
     @Provides
     @Singleton
-    fun providesGeTMovieReviewUseCase(useCaseFactory: IUseCaseFactory):ISingleUseCase<List<MovieReview>,Int>{
-        return useCaseFactory.getMovieReviewsUseCase(Schedulers.io(),AndroidSchedulers.mainThread())
+    fun providesGeTMovieReviewUseCase(useCaseFactory: IUseCaseFactory): ISingleUseCase<List<MovieReview>, Int> {
+        return useCaseFactory.getMovieReviewsUseCase(Schedulers.io(), AndroidSchedulers.mainThread())
     }
 }

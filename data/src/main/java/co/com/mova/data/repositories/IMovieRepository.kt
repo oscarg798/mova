@@ -14,7 +14,7 @@ import io.reactivex.Observable
  */
 interface IMovieRepository {
 
-    fun getMoviesFromAPI(page: Int): Observable<Pair<Boolean, List<APIMovie>>>
+    fun getMoviesFromAPI(page: Int, type: Int): Observable<Pair<Boolean, List<APIMovie>>>
 
     fun getMovie(id: Int): DBMovie?
 

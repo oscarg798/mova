@@ -2,9 +2,9 @@ package co.com.mova.splash
 
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.OnLifecycleEvent
-import co.com.mova.movies.MoviesActivity
 import co.com.mova.core.entities.Genre
 import co.com.mova.core.use_cases.base.ISingleUseCase
+import co.com.mova.dashboard.DashboardActivity
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import javax.inject.Inject
@@ -25,7 +25,7 @@ class SplashActivityPresenter : ISplashActivityPresenter {
     fun getGenres() {
         val disposable = object : DisposableSingleObserver<List<Genre>>() {
             override fun onSuccess(t: List<Genre>) {
-                mView?.navigate(MoviesActivity::class.java, null, null)
+                mView?.navigate(DashboardActivity::class.java, null, null)
                 mDisposableBag.remove(this)
             }
 

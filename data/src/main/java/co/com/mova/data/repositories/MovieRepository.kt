@@ -39,12 +39,6 @@ class MovieRepository : IMovieRepository {
             1 -> mMovieRoute.getPopularMovies(page)
             2 -> mMovieRoute.getTopRatedMovies(page)
             else -> mMovieRoute.getUpcomingMovies(page)
-        }.doOnError {
-            val movies = mMovieDAO.getAll().map {
-                APIMovie(it.id, it.voteCount, it.voteAverage,
-                        it.title, it.popularity, it.posterPath, it.genreIds, it.overview, it.releaseDate)
-            }
-            GetMoviesResponse(page, movies.size, page, movies)
         }.map {
             Pair(it.totalPages > page, it.results)
         }
@@ -115,5 +109,9 @@ class MovieRepository : IMovieRepository {
 
     override fun getMovieCast(id: Int): DBMovieCast? {
         return mMovieCastDAO.get(id)
+    }
+
+    override fun getMovies(): List<DBMovie> {
+        return  mMovieDAO.getAll()
     }
 }

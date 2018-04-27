@@ -45,4 +45,6 @@ interface IMovieRepository {
     fun getMovieReviewsFromDB(movieId: Int): List<DBMovieReview>
 
     fun insertMovieReview(dbMovieReview: DBMovieReview)
+
+    fun getMovies():List<DBMovie>
 }

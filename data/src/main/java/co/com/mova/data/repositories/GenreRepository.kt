@@ -3,6 +3,7 @@ package co.com.mova.data.repositories
 import co.com.mova.data.local.dao.GenreDAO
 import co.com.mova.data.local.entities.DBGenre
 import co.com.mova.data.network.entities.APIGenre
+import co.com.mova.data.network.responses.GetGenreResponse
 import co.com.mova.data.network.routes.IGenreRoute
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -29,6 +30,10 @@ class GenreRepository : IGenreRepository {
 
     override fun insertGenre(dbGenre: DBGenre) {
         mGenreDAO.insert(dbGenre)
+    }
+
+    override fun getGenres(): List<DBGenre> {
+        return mGenreDAO.getAll()
     }
 
 

@@ -13,4 +13,6 @@ interface IGenreRepository {
     fun getGenre(id: Int): DBGenre?
 
     fun insertGenre(dbGenre: DBGenre)
+
+    fun getGenres():List<DBGenre>
 }

@@ -15,7 +15,7 @@ class SplashActivity : AppCompatActivity(), ISplashActivityView {
 
     private lateinit var mPresenter: ISplashActivityPresenter
 
-    private val mMinTime = 4000
+    private val mMinTime = 2700
 
     private var mResumetime = 0.toLong()
 

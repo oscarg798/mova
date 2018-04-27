@@ -25,19 +25,29 @@ class SplashActivityPresenter : ISplashActivityPresenter {
     fun getGenres() {
         val disposable = object : DisposableSingleObserver<List<Genre>>() {
             override fun onSuccess(t: List<Genre>) {
-                mView?.navigate(DashboardActivity::class.java, null, null)
+                if(t.isEmpty()){
+                    showErrorMessage()
+                }else{
+                    mView?.navigate(DashboardActivity::class.java, null, null)
+
+                }
                 mDisposableBag.remove(this)
             }
 
             override fun onError(e: Throwable) {
                 e.printStackTrace()
-                mView?.showMessage("Please verify your internet connection and  try again")
+                showErrorMessage()
                 mDisposableBag.remove(this)
             }
         }
         mDisposableBag.add(disposable)
         mGetGenresUseCase.execute(null, disposable)
 
+    }
+
+
+    private fun showErrorMessage(){
+        mView?.showMessage("Please verify your internet connection and  try again")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
